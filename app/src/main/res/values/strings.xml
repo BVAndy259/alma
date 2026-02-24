@@ -1,0 +1,42 @@
+<resources>
+    <!--CREDENCIALES DE APLICATIVO-->
+    <string name="app_name">Control de Clientes</string>
+    <string name="developer">Andy Barreda</string>
+    <string name="desarrollo">Desarrollado por:</string>
+    <string name="version">Version 1.0.0</string>
+
+    <!--Login-->
+    <string name="Titulo_login">Ingresar Sesión</string>
+
+    <string name="lbl_usuario">Usuario</string>
+    <string name="txt_usuario">Ingrese Usuario</string>
+
+    <string name="lbl_password_login">Contraseña</string>
+    <string name="txt_password_login">Ingrese Contraseña</string>
+
+    <string name="btn_ingresar">Ingresar</string>
+
+    <string name="lbl_crear_cuenta">¿No tienes cuenta?, Registrate</string>
+
+    <!--Registro-->
+    <string name="titulo_registro">Registrar Usuario</string>
+
+    <string name="lbl_nombres">Nombre</string>
+    <string name="txt_nombres">Ingrese Nombre</string>
+
+    <string name="lbl_apellidos">Apellido</string>
+    <string name="txt_apellidos">Ingrese Apellido</string>
+
+    <string name="lbl_correo">Correo</string>
+    <string name="txt_correo">Ingrese Correo</string>
+
+    <string name="lbl_password_registro">Contraseña</string>
+    <string name="txt_password_registro">Ingrese Contraseña</string>
+
+    <string name="lbl_confirmar_password">Confirmar Contraseña</string>
+    <string name="txt_confirmar_password">Ingrese Confirmación de Contraseña</string>
+
+    <string name="btn_registrar">Registrar Usuario</string>
+
+    <string name="lbl_ir_login">Volver al Inicio de Sesión</string>
+</resources>
