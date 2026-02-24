@@ -5,6 +5,10 @@
     <string name="desarrollo">Desarrollado por:</string>
     <string name="version">Version 1.0.0</string>
 
+    <!--Precargado-->
+    <string name="txt_logo">Diseño y Desarrollo Web</string>
+    <string name="lema">La perfección web es nuestro día a día</string>
+
     <!--Login-->
     <string name="Titulo_login">Ingresar Sesión</string>
 

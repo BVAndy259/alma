@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class RegistroActivity extends AppCompatActivity {
-    private TextView lblLogin;
+    private TextView lblIrLogin;
     private Button btnRegistrar;
 
     @Override
@@ -27,8 +27,8 @@ public class RegistroActivity extends AppCompatActivity {
             return insets;
         });
 
-        lblLogin = findViewById(R.id.lblIrLogin);
-        lblLogin.setOnClickListener(new View.OnClickListener() {
+        lblIrLogin = findViewById(R.id.lblIrLogin);
+        lblIrLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RegistroActivity.this, MainActivity.class));

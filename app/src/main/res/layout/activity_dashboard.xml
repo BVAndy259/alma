@@ -9,21 +9,6 @@
     tools:context=".DashboardActivity">
 
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="221dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="24dp"
-        android:gravity="left"
-        android:text="Radio Yaraví"
-        android:textColor="#F5B278"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView6"
         android:layout_width="332dp"
         android:layout_height="56dp"

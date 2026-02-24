@@ -17,10 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private TextInputLayout textInputLayout2;
-    private TextInputLayout textInputLayout3;
+    private TextInputLayout lblUsuarioLogin;
+    private TextInputLayout lblPasswordLogin;
     private Button button;
-    private TextView lblRegistro;
+    private TextView txtRegistro;
     private int intentosFallidos = 0;
     private final int MAX_INTENTOS = 3;
 
@@ -35,42 +35,42 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        textInputLayout2 = findViewById(R.id.textInputLayout2);
-        textInputLayout3 = findViewById(R.id.textInputLayout3);
+        lblUsuarioLogin = findViewById(R.id.lblUsuarioLogin);
+        lblPasswordLogin = findViewById(R.id.lblPasswordLogin);
 
-        lblRegistro =findViewById(R.id.textView5);
-        lblRegistro.setOnClickListener(new View.OnClickListener() {
+        txtRegistro = findViewById(R.id.txtRegistroLogin);
+        txtRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, RegistroActivity.class));
             }
         });
 
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.btnLogin);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String usuario = textInputLayout2.getEditText().getText().toString().trim();
-                String contrasena = textInputLayout3.getEditText().getText().toString().trim();
+                String usuario = lblUsuarioLogin.getEditText().getText().toString().trim();
+                String contrasena = lblPasswordLogin.getEditText().getText().toString().trim();
                 boolean error = false;
 
                 if (usuario.isEmpty()) {
-                    textInputLayout2.setError("Campo requerido");
+                    lblUsuarioLogin.setError("Campo requerido");
                     error = true;
                 }
 
                 if (contrasena.isEmpty()) {
-                    textInputLayout3.setError("Campo requerido");
+                    lblPasswordLogin.setError("Campo requerido");
                     error = true;
                 }
 
                 if (!usuario.contains("@")) {
-                    textInputLayout2.setError("Correo inválido. Debe contener @.");
+                    lblUsuarioLogin.setError("Correo inválido. Debe contener @.");
                     error = true;
                 }
 
                 if (contrasena.length() < 8) {
-                    textInputLayout3.setError("La contraseña debe tener al menos 8 caracteres.");
+                    lblPasswordLogin.setError("La contraseña debe tener al menos 8 caracteres.");
                     error = true;
                 }
 
