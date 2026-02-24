@@ -2,6 +2,8 @@ package com.almaquinta.controlusuarios;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,6 +40,24 @@ public class MainActivity extends AppCompatActivity {
         lblUsuarioLogin = findViewById(R.id.lblUsuarioLogin);
         lblPasswordLogin = findViewById(R.id.lblPasswordLogin);
 
+        lblUsuarioLogin.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                lblUsuarioLogin.setError(null);
+            }
+        });
+
+        lblPasswordLogin.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                lblPasswordLogin.setError(null);
+            }
+        });
+
         txtRegistro = findViewById(R.id.txtRegistroLogin);
         txtRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,22 +74,21 @@ public class MainActivity extends AppCompatActivity {
                 String contrasena = lblPasswordLogin.getEditText().getText().toString().trim();
                 boolean error = false;
 
+                lblUsuarioLogin.setError(null);
+                lblPasswordLogin.setError(null);
+
                 if (usuario.isEmpty()) {
                     lblUsuarioLogin.setError("Campo requerido");
+                    error = true;
+                } else if (!usuario.contains("@")) {
+                    lblUsuarioLogin.setError("Correo inválido. Debe contener @.");
                     error = true;
                 }
 
                 if (contrasena.isEmpty()) {
                     lblPasswordLogin.setError("Campo requerido");
                     error = true;
-                }
-
-                if (!usuario.contains("@")) {
-                    lblUsuarioLogin.setError("Correo inválido. Debe contener @.");
-                    error = true;
-                }
-
-                if (contrasena.length() < 8) {
+                } else if (contrasena.length() < 8) {
                     lblPasswordLogin.setError("La contraseña debe tener al menos 8 caracteres.");
                     error = true;
                 }

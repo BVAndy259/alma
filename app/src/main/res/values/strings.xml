@@ -43,4 +43,7 @@
     <string name="btn_registrar">Registrar Usuario</string>
 
     <string name="lbl_ir_login">Volver al Inicio de Sesión</string>
+
+    <!--Dashboard-->
+    <string name="titulo_dashboard">Bienvenido a tu Dashboard</string>
 </resources>
