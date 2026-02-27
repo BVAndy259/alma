@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class RegistroActivity extends AppCompatActivity {
-    private TextView lblIrLogin;
+    private TextView lblIrDashboard;
     private Button btnRegistrar;
 
     @Override
@@ -21,22 +21,25 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registro);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        View rootView = findViewById(R.id.main);
+        if (rootView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+        }
 
-        lblIrLogin = findViewById(R.id.lblIrLogin);
-        lblIrLogin.setOnClickListener(new View.OnClickListener() {
+        lblIrDashboard = findViewById(R.id.lblIrDashboard);
+        lblIrDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegistroActivity.this, MainActivity.class));
+                startActivity(new Intent(RegistroActivity.this, DashboardActivity.class));
             }
         });
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {;
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RegistroActivity.this, DashboardActivity.class));

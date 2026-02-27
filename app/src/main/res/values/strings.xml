@@ -1,49 +1,59 @@
 <resources>
-    <!--CREDENCIALES DE APLICATIVO-->
-    <string name="app_name">Control de Clientes</string>
-    <string name="developer">Andy Barreda</string>
-    <string name="desarrollo">Desarrollado por:</string>
-    <string name="version">Version 1.0.0</string>
+	<!--CREDENCIALES DE APLICATIVO-->
+	<string name="app_name">Alma Quinta Growth Hub</string>
+	<string name="developer">Andy Barreda</string>
+	<string name="desarrollo">Desarrollado por:</string>
+	<string name="version">Version 1.0.0</string>
 
-    <!--Precargado-->
-    <string name="txt_logo">Diseño y Desarrollo Web</string>
-    <string name="lema">La perfección web es nuestro día a día</string>
+	<!--Precargado-->
+	<string name="txt_logo">Métricas y Automatización</string>
+	<string name="lema">La perfección web es nuestro día a día</string>
 
-    <!--Login-->
-    <string name="Titulo_login">Ingresar Sesión</string>
+	<!--Login-->
+	<string name="titulo_area">Área de Growth</string>
+	<string name="Titulo_login">Ingresar Sesión</string>
+	<string name="lbl_usuario">Usuario</string>
+	<string name="txt_usuario">Ingrese Usuario</string>
+	<string name="lbl_password_login">Contraseña</string>
+	<string name="txt_password_login">Ingrese Contraseña</string>
+	<string name="btn_ingresar">Ingresar</string>
+	<string name="lbl_crear_cuenta">¿No tienes cuenta?, Registrate</string>
 
-    <string name="lbl_usuario">Usuario</string>
-    <string name="txt_usuario">Ingrese Usuario</string>
+	<!--Registro-->
+	<string name="titulo_registro">Añadir Staff - Growth</string>
+	<string name="subtitulo_registro">Complete los datos del nuevo miembro</string>
+	<string name="lbl_nombres">Nombre</string>
+	<string name="txt_nombres">Ingrese Nombre</string>
+	<string name="lbl_apellidos">Apellido</string>
+	<string name="txt_apellidos">Ingrese Apellido</string>
+	<string name="lbl_correo">Correo Corporativo</string>
+	<string name="txt_correo">ejemplo@almaquinta.com</string>
+	<string name="lbl_password_registro">Contraseña</string>
+	<string name="txt_password_registro">Asigne una contraseña</string>
+	<string name="btn_registrar">Registrar en Sistema</string>
+	<string name="lbl_ir_dashboard">Volver al Dashboard</string>
 
-    <string name="lbl_password_login">Contraseña</string>
-    <string name="txt_password_login">Ingrese Contraseña</string>
+	<!--Dashboard-->
+	<string name="titulo_dashboard">Dashboard Analytics</string>
+	<string name="reporte_dashboard">Reporte: Febrero 2026</string>
+	<string name="trafico">TRÁFICO MENSUAL</string>
+	<string name="visitas_totales">Visitas Totales</string>
+	<string name="sesiones">Sesiones</string>
+	<string name="comportamiento">COMPORTAMIENTO DE USUARIOS</string>
+	<string name="activos">Usuarios Activos</string>
+	<string name="nuevos">Nuevos Usuarios</string>
+	<string name="interaccion">Tasa de Interacción</string>
+	<string name="fuente">Top Fuente</string>
+	<string name="lbl_dashboard">Registrar Nuevo Usuario</string>
+	<string name="lbl_rendimiento">Rendimiento de Campaña</string>
 
-    <string name="btn_ingresar">Ingresar</string>
-
-    <string name="lbl_crear_cuenta">¿No tienes cuenta?, Registrate</string>
-
-    <!--Registro-->
-    <string name="titulo_registro">Registrar Usuario</string>
-
-    <string name="lbl_nombres">Nombre</string>
-    <string name="txt_nombres">Ingrese Nombre</string>
-
-    <string name="lbl_apellidos">Apellido</string>
-    <string name="txt_apellidos">Ingrese Apellido</string>
-
-    <string name="lbl_correo">Correo</string>
-    <string name="txt_correo">Ingrese Correo</string>
-
-    <string name="lbl_password_registro">Contraseña</string>
-    <string name="txt_password_registro">Ingrese Contraseña</string>
-
-    <string name="lbl_confirmar_password">Confirmar Contraseña</string>
-    <string name="txt_confirmar_password">Ingrese Confirmación de Contraseña</string>
-
-    <string name="btn_registrar">Registrar Usuario</string>
-
-    <string name="lbl_ir_login">Volver al Inicio de Sesión</string>
-
-    <!--Dashboard-->
-    <string name="titulo_dashboard">Bienvenido a tu Dashboard</string>
+	<!--Rendimiento Campaña-->
+	<string name="titulo_rendimiento">RENDIMIENTO DE INVERSIÓN (PAID MEDIA)</string>
+	<string name="lbl_inversion">Inversión Total</string>
+	<string name="lbl_leads">Total Leads</string>
+	<string name="lbl_costo_lead">CPL</string>
+	<string name="lbl_eficiencia_meta">EFICIENCIA META ADS</string>
+	<string name="lbl_tasa_clics">Tasa de Clics (CTR)</string>
+	<string name="lbl_costo_clic">Costo por Clic (CPC)</string>
+	<string name="btn_regresar_dashboard">Regresar al Dashboard</string>
 </resources>

@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout lblUsuarioLogin;
     private TextInputLayout lblPasswordLogin;
     private Button button;
-    private TextView txtRegistro;
     private int intentosFallidos = 0;
     private final int MAX_INTENTOS = 3;
 
@@ -55,14 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 lblPasswordLogin.setError(null);
-            }
-        });
-
-        txtRegistro = findViewById(R.id.txtRegistroLogin);
-        txtRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, RegistroActivity.class));
             }
         });
 

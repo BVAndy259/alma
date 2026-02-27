@@ -1,187 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RegistroActivity"
-    android:background="#04363C">
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
+    <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/titulo_registro"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textStyle="bold"
-            android:textSize="23sp"
-            android:gravity="center"
-            android:textColor="#F5B278"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/fondo_login"
+            android:scaleType="centerCrop" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:lottie_imageAssetsFolder="assets"
-            app:lottie_fileName="plataforma.json"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="false"
-            android:layout_gravity="center"
-            android:layout_marginTop="15sp"/>
-
-        <TextView
+    <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_nombres"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textColor="#F5B278"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="17sp"/>
+            android:layout_height="match_parent"
+            android:background="#BB001A1A" />
 
-        <com.google.android.material.textfield.TextInputLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
-            app:boxBackgroundColor="@color/white">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <EditText
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:inputType="text"
-                android:hint="@string/txt_nombres"
-                android:fontFamily="@font/jomolhari_regular"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_apellidos"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textColor="#F5B278"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="15sp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:boxBackgroundColor="@color/white">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:inputType="text"
-                android:hint="@string/txt_apellidos"
-                android:fontFamily="@font/jomolhari_regular"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_correo"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textColor="#F5B278"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="15sp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
-            app:boxBackgroundColor="@color/white">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:inputType="text"
-                android:hint="@string/txt_correo"
-                android:fontFamily="@font/jomolhari_regular"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_password_registro"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textColor="#F5B278"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="15sp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
-            app:boxBackgroundColor="@color/white">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:inputType="text"
-                android:hint="@string/txt_password_registro"
-                android:fontFamily="@font/jomolhari_regular"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_confirmar_password"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textColor="#F5B278"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="15sp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
-            app:boxBackgroundColor="@color/white">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:inputType="text"
-                android:hint="@string/txt_confirmar_password"
-                android:fontFamily="@font/jomolhari_regular"/>
-
-            <Button
-                android:id="@+id/btnRegistrar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingStart="45dp"
-                android:text="@string/btn_registrar"
-                android:fontFamily="@font/jomolhari_regular"/>
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="32dp">
 
             <TextView
-                android:id="@+id/lblIrLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_ir_login"
-                android:fontFamily="@font/jomolhari_regular"
-                android:textColor="#F5B278"
-                android:layout_marginTop="15dp"
-                android:textStyle="bold"
-                android:textSize="17sp"
-                android:gravity="center"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo_registro"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subtitulo_registro"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textSize="14sp"
+                    android:textColor="#E0B0A0"
+                    android:layout_marginBottom="48dp" />
 
-</ScrollView>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_nombres"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="#E0B0A0"
+                    android:layout_marginBottom="8dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="@string/txt_nombres"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColorHint="#E0B0A0"
+                    android:textColor="#E0B0A0"
+                    android:background="#33FFFFFF"
+                    android:padding="12dp"
+                    android:layout_marginBottom="24dp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_apellidos"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="#E0B0A0"
+                    android:layout_marginBottom="8dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="@string/txt_apellidos"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColorHint="#E0B0A0"
+                    android:textColor="#E0B0A0"
+                    android:background="#33FFFFFF"
+                    android:padding="12dp"
+                    android:layout_marginBottom="24dp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_correo"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="#E0B0A0"
+                    android:layout_marginBottom="8dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="@string/txt_correo"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColorHint="#E0B0A0"
+                    android:textColor="#E0B0A0"
+                    android:background="#33FFFFFF"
+                    android:padding="12dp"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginBottom="24dp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_password_registro"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="#E0B0A0"
+                    android:layout_marginBottom="8dp"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="@string/txt_password_registro"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColorHint="#E0B0A0"
+                    android:textColor="#E0B0A0"
+                    android:background="#33FFFFFF"
+                    android:padding="12dp"
+                    android:inputType="textPassword"
+                    android:layout_marginBottom="48dp"/>
+
+            <Button
+                    android:id="@+id/btnRegistrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:text="@string/btn_registrar"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:backgroundTint="#E0B0A0"
+                    android:textColor="#002F2F"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp"/>
+
+            <TextView
+                    android:id="@+id/lblIrDashboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_ir_dashboard"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

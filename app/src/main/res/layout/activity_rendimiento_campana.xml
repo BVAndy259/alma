@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fillViewport="true"
+		android:background="@drawable/fondo_login">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/main"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="32dp"
+		tools:context=".RendimientoGeneralActivity">
+
+		<View
+				android:layout_width="441dp"
+				android:layout_height="951dp"
+				android:background="#DD001A1A"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+	<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/guidelineStart"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_begin="30dp" />
+
+	<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/guidelineEnd"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_end="30dp" />
+
+	<TextView
+			android:id="@+id/tvTitlePaid"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			android:text="@string/titulo_rendimiento"
+			android:fontFamily="@font/jomolhari_regular"
+			android:textColor="#E0B0A0"
+			android:textSize="14sp"
+			android:textStyle="bold"
+			android:letterSpacing="0.1"
+			app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+			app:layout_constraintStart_toStartOf="@id/guidelineStart"
+			app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.cardview.widget.CardView
+			android:id="@+id/cardPaidMedia"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			app:cardBackgroundColor="#26FFFFFF"
+			app:cardCornerRadius="16dp"
+			app:cardElevation="0dp"
+			app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+			app:layout_constraintStart_toStartOf="@id/guidelineStart"
+			app:layout_constraintTop_toBottomOf="@id/tvTitlePaid">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="20dp">
+
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="16dp">
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/lbl_inversion"
+						android:fontFamily="@font/jomolhari_regular"
+						android:textColor="#B3FFFFFF"
+						android:textSize="14sp" />
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentEnd="true"
+						android:text="$1,250.00"
+						android:fontFamily="@font/jomolhari_regular"
+						android:textColor="#FFFFFF"
+						android:textSize="20sp"
+						android:textStyle="bold" />
+			</RelativeLayout>
+
+			<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginBottom="16dp"
+					android:background="#4DFFFFFF" />
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:weightSum="2">
+
+				<LinearLayout
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:orientation="vertical">
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/lbl_leads"
+							android:fontFamily="@font/jomolhari_regular"
+							android:textColor="#B3FFFFFF"
+							android:textSize="12sp" />
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="145"
+							android:fontFamily="@font/jomolhari_regular"
+							android:textColor="#2ECC71"
+							android:textSize="20sp"
+							android:textStyle="bold" />
+				</LinearLayout>
+
+				<LinearLayout
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="end"
+						android:orientation="vertical">
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/lbl_costo_lead"
+							android:fontFamily="@font/jomolhari_regular"
+							android:textColor="#B3FFFFFF"
+							android:textSize="12sp" />
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="$8.62"
+							android:fontFamily="@font/jomolhari_regular"
+							android:textColor="#E0B0A0"
+							android:textSize="20sp"
+							android:textStyle="bold" />
+				</LinearLayout>
+			</LinearLayout>
+		</LinearLayout>
+	</androidx.cardview.widget.CardView>
+
+	<TextView
+			android:id="@+id/tvTitleMeta"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			android:letterSpacing="0.1"
+			android:text="@string/lbl_eficiencia_meta"
+			android:fontFamily="@font/jomolhari_regular"
+			android:textColor="#E0B0A0"
+			android:textSize="14sp"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+			app:layout_constraintStart_toStartOf="@id/guidelineStart"
+			app:layout_constraintTop_toBottomOf="@id/cardPaidMedia" />
+
+	<LinearLayout
+			android:id="@+id/rowMetaCards"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			android:orientation="horizontal"
+			app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+			app:layout_constraintStart_toStartOf="@id/guidelineStart"
+			app:layout_constraintTop_toBottomOf="@id/tvTitleMeta">
+
+		<androidx.cardview.widget.CardView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
+				android:layout_weight="1"
+				app:cardBackgroundColor="#26FFFFFF"
+				app:cardCornerRadius="16dp"
+				app:cardElevation="0dp">
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:padding="16dp">
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/lbl_tasa_clics"
+						android:fontFamily="@font/jomolhari_regular"
+						android:textColor="#B3FFFFFF"
+						android:textSize="12sp" />
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:text="2.4%"
+						android:fontFamily="@font/jomolhari_regular"
+						android:textColor="#FFFFFF"
+						android:textSize="22sp"
+						android:textStyle="bold" />
+			</LinearLayout>
+		</androidx.cardview.widget.CardView>
+
+		<androidx.cardview.widget.CardView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_weight="1"
+				app:cardBackgroundColor="#26FFFFFF"
+				app:cardCornerRadius="16dp"
+				app:cardElevation="0dp">
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:padding="16dp">
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/lbl_costo_clic"
+						android:fontFamily="@font/jomolhari_regular"
+						android:textColor="#B3FFFFFF"
+						android:textSize="12sp" />
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:text="$0.45"
+						android:fontFamily="@font/jomolhari_regular"
+						android:textColor="#E0B0A0"
+						android:textSize="22sp"
+						android:textStyle="bold" />
+			</LinearLayout>
+		</androidx.cardview.widget.CardView>
+	</LinearLayout>
+		<Button
+				android:text="@string/btn_regresar_dashboard"
+				android:backgroundTint="#E0B0A0"
+				android:textColor="#002F2F"
+				android:fontFamily="@font/jomolhari_regular"
+				android:textSize="13sp"
+				android:textStyle="bold"
+				android:layout_width="182dp"
+				android:layout_height="62dp"
+				android:id="@+id/btnRegresarDashboard"
+				app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+				app:layout_constraintEnd_toStartOf="@+id/guidelineEnd" app:layout_constraintHorizontal_bias="1.0"
+				app:layout_constraintTop_toBottomOf="@+id/rowMetaCards" android:layout_marginTop="252dp"/>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
