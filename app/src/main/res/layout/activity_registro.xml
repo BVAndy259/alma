@@ -56,6 +56,7 @@
                     android:textColor="#E0B0A0"
                     android:layout_marginBottom="8dp"/>
             <EditText
+                    android:id="@+id/etNombreRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_nombres"
@@ -74,6 +75,7 @@
                     android:textColor="#E0B0A0"
                     android:layout_marginBottom="8dp"/>
             <EditText
+                    android:id="@+id/etApellidoRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_apellidos"
@@ -92,6 +94,7 @@
                     android:textColor="#E0B0A0"
                     android:layout_marginBottom="8dp"/>
             <EditText
+                    android:id="@+id/etCorreoRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_correo"
@@ -111,6 +114,7 @@
                     android:textColor="#E0B0A0"
                     android:layout_marginBottom="8dp"/>
             <EditText
+                    android:id="@+id/etPasswordRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_password_registro"

@@ -1,29 +1,40 @@
 package com.almaquinta.controlusuarios;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    private TextInputLayout lblUsuarioLogin;
-    private TextInputLayout lblPasswordLogin;
-    private Button button;
-    private int intentosFallidos = 0;
-    private final int MAX_INTENTOS = 3;
+    private EditText etUsuario, etPassword;
+    private TextView lblIrRegistro;
+    private Button btnIniciar;
+    private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
+    private String usuario = "", password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,102 +47,67 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        lblUsuarioLogin = findViewById(R.id.lblUsuarioLogin);
-        lblPasswordLogin = findViewById(R.id.lblPasswordLogin);
+        etUsuario = findViewById(R.id.etUsuarioLogin);
+        etPassword = findViewById(R.id.etPasswordLogin);
+        btnIniciar = findViewById(R.id.btnLogin);
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setTitle("Espere por favor...");
+        lblIrRegistro = findViewById(R.id.lblRegistrar);
 
-        lblUsuarioLogin.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                lblUsuarioLogin.setError(null);
-            }
-        });
-
-        lblPasswordLogin.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                lblPasswordLogin.setError(null);
-            }
-        });
-
-        button = findViewById(R.id.btnLogin);
-        button.setOnClickListener(new View.OnClickListener() {
+        lblIrRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String usuario = lblUsuarioLogin.getEditText().getText().toString().trim();
-                String contrasena = lblPasswordLogin.getEditText().getText().toString().trim();
-                boolean error = false;
-
-                lblUsuarioLogin.setError(null);
-                lblPasswordLogin.setError(null);
-
-                if (usuario.isEmpty()) {
-                    lblUsuarioLogin.setError("Campo requerido");
-                    error = true;
-                } else if (!usuario.contains("@")) {
-                    lblUsuarioLogin.setError("Correo inválido. Debe contener @.");
-                    error = true;
-                }
-
-                if (contrasena.isEmpty()) {
-                    lblPasswordLogin.setError("Campo requerido");
-                    error = true;
-                } else if (contrasena.length() < 8) {
-                    lblPasswordLogin.setError("La contraseña debe tener al menos 8 caracteres.");
-                    error = true;
-                }
-
-                if (error) {
-                    return;
-                }
-
-                /*if (usuario.isEmpty() || contrasena.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!usuario.contains("@")) {
-                    Toast.makeText(MainActivity.this, "Correo inválido. El correo debe contener @", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (contrasena.length() < 8) {
-                    Toast.makeText(MainActivity.this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
-
-                if (usuario.equals("admin@email.com") && contrasena.equals("admin123")) {
-                    intentosFallidos = 0;
-                    Toast.makeText(MainActivity.this, "¡Bienvenido!", Toast.LENGTH_LONG).show();
-
-                    startActivity(new Intent(MainActivity.this, DashboardActivity.class));
-                    finish();
-                    return;
-                }
-
-                intentosFallidos++;
-                int restantes = MAX_INTENTOS - intentosFallidos;
-
-                if (intentosFallidos >= MAX_INTENTOS) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Cuenta bloqueada")
-                            .setMessage("Has superado el límite de " + MAX_INTENTOS + " intentos.\nLa aplicación se cerrará.")
-                            .setCancelable(false)
-                            .setPositiveButton("Aceptar", (dialog, which) -> finishAffinity())
-                            .show();
-
-                    button.setEnabled(false);
-                } else {
-                    String mensaje = "Credenciales incorrectas.\n" +
-                            "Intento " + intentosFallidos + " de " + MAX_INTENTOS + ".\n" +
-                            "Te quedan " + restantes + " intento" + (restantes == 1 ? "" : "s") + ".";
-
-                    Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
-                }
+                startActivity(new Intent(MainActivity.this, RegistroActivity.class));
             }
         });
+
+        btnIniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validarDatos();
+            }
+        });
+    }
+
+    private void validarDatos() {
+        usuario = etUsuario.getText().toString().trim();
+        password = etPassword.getText().toString().trim();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(usuario).matches()) {
+            Toast.makeText(this, "Ingrese correo válido", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Ingrese contraseña válida", Toast.LENGTH_SHORT).show();
+        } else if (password.length() < 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
+        } else {
+            logearUsuario();
+        }
+    }
+
+    private void logearUsuario() {
+        progressDialog.setMessage("Iniciando sesión...");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(usuario, password)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            progressDialog.dismiss();
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                            Toast.makeText(MainActivity.this, "Bienvenido " + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Verifique si el correo o contraseña con correctos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Ocurrió un problema", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

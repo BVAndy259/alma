@@ -58,6 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtUsuarioLogin">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsuarioLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_usuario"
@@ -94,6 +95,7 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPasswordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_password_login"
@@ -131,5 +133,20 @@
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:layout_constraintVertical_bias="0.38"/>
+
+    <TextView
+        android:id="@+id/lblRegistrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/jomolhari_regular"
+        android:text="@string/lbl_crear_cuenta"
+        android:textColor="#E0B0A0"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
