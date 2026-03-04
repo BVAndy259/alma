@@ -1,15 +1,31 @@
 *.iml
-.gradle
+.gradle/
 /local.properties
+local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/copilot.data.migration.ask2agent.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/deviceManager.xml
+/.idea/runConfigurations.xml
+/.idea/migrations.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
+# Android build outputs
+app/build/
+
+# Firebase - contiene API keys sensibles
+app/google-services.json
+
+# Keystore (prevención futura)
+*.jks
+*.keystore
+keystore.properties
