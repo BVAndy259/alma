@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="alma_copper">#E0B0A0</color>
+    <color name="alma_dark_teal">#001A1A</color>
+    <color name="alma_button_text">#002F2F</color>
+
+    <color name="scrim_heavy">#DD001A1A</color>
+    <color name="scrim_medium">#BB001A1A</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_53">#88FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_15">#26FFFFFF</color>
+
+    <color name="status_success">#2ECC71</color>
 </resources>

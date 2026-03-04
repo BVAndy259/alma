@@ -40,14 +40,14 @@
                         android:fontFamily="@font/jomolhari_regular"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="@color/white" />
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/reporte_dashboard"
                         android:fontFamily="@font/jomolhari_regular"
-                        android:textColor="#E0B0A0"
+                        android:textColor="@color/alma_copper"
                         android:textSize="14sp"
                         android:layout_below="@id/tvTitulo"
                         android:layout_marginTop="4dp"/>
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/trafico"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"
@@ -98,7 +98,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/visitas_totales"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/white_70"
                                 android:textSize="12sp"/>
 
                         <TextView
@@ -106,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="15,840"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/white"
                                 android:textSize="26sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="4dp"/>
@@ -134,7 +134,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/sesiones"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/white_70"
                                 android:textSize="12sp"/>
 
                         <TextView
@@ -142,7 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="12,150"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/white"
                                 android:textSize="26sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="4dp"/>
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/comportamiento"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"
@@ -187,14 +187,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/activos"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/white_70"
                                 android:textSize="13sp"/>
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="8,420"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#E0B0A0"
+                                android:textColor="@color/alma_copper"
                                 android:textSize="22sp"
                                 android:textStyle="bold"/>
                     </LinearLayout>
@@ -202,7 +202,7 @@
                     <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="#4DFFFFFF"
+                            android:background="@color/white_30"
                             android:layout_marginHorizontal="16dp"/>
 
                     <LinearLayout
@@ -215,14 +215,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/nuevos"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/white_70"
                                 android:textSize="13sp"/>
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3,105"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/white"
                                 android:textSize="22sp"
                                 android:textStyle="bold"/>
                     </LinearLayout>
@@ -248,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/interaccion"
                             android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="#B3FFFFFF"
+                            android:textColor="@color/white_70"
                             android:textSize="14sp"/>
 
                     <TextView
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:text="68.5%"
                             android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:layout_below="@id/tvTasaLabel"
@@ -275,7 +275,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/fuente"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/white_70"
                                 android:textSize="12sp"/>
 
                         <TextView
@@ -283,7 +283,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Orgánico"
                                 android:fontFamily="@font/jomolhari_regular"
-                                android:textColor="#E0B0A0"
+                                android:textColor="@color/alma_copper"
                                 android:textSize="16sp"
                                 android:textStyle="bold"/>
                     </LinearLayout>
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:text="ACCIONES RÁPIDAS"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"
@@ -307,8 +307,8 @@
                     android:layout_height="55dp"
                     android:text="@string/lbl_rendimiento"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:backgroundTint="#E0B0A0"
-                    android:textColor="#002F2F"
+                    android:backgroundTint="@color/alma_copper"
+                    android:textColor="@color/alma_button_text"
                     android:textStyle="bold"
                     android:layout_marginBottom="16dp"
                     app:cornerRadius="8dp"/>
@@ -318,8 +318,8 @@
                 android:layout_height="55dp"
                 android:text="@string/lbl_dashboard"
                 android:fontFamily="@font/jomolhari_regular"
-                android:backgroundTint="#E0B0A0"
-                android:textColor="#002F2F"
+                android:backgroundTint="@color/alma_copper"
+                android:textColor="@color/alma_button_text"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"
                 app:cornerRadius="8dp"/>

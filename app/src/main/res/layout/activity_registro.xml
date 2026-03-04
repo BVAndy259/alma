@@ -35,7 +35,7 @@
                     android:fontFamily="@font/jomolhari_regular"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="16dp" />
 
@@ -45,7 +45,7 @@
                     android:text="@string/subtitulo_registro"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textSize="14sp"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:layout_marginBottom="48dp" />
 
             <TextView
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_nombres"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:layout_marginBottom="8dp"/>
             <EditText
                     android:id="@+id/etNombreRegistro"
@@ -61,9 +61,9 @@
                     android:layout_height="55dp"
                     android:hint="@string/txt_nombres"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="#E0B0A0"
-                    android:textColor="#E0B0A0"
-                    android:background="#33FFFFFF"
+                    android:textColorHint="@color/alma_copper"
+                    android:textColor="@color/alma_copper"
+                    android:background="@color/white_20"
                     android:padding="12dp"
                     android:layout_marginBottom="24dp"/>
 
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_apellidos"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:layout_marginBottom="8dp"/>
             <EditText
                     android:id="@+id/etApellidoRegistro"
@@ -80,9 +80,9 @@
                     android:layout_height="55dp"
                     android:hint="@string/txt_apellidos"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="#E0B0A0"
-                    android:textColor="#E0B0A0"
-                    android:background="#33FFFFFF"
+                    android:textColorHint="@color/alma_copper"
+                    android:textColor="@color/alma_copper"
+                    android:background="@color/white_20"
                     android:padding="12dp"
                     android:layout_marginBottom="24dp"/>
 
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_correo"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:layout_marginBottom="8dp"/>
             <EditText
                     android:id="@+id/etCorreoRegistro"
@@ -99,9 +99,9 @@
                     android:layout_height="55dp"
                     android:hint="@string/txt_correo"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="#E0B0A0"
-                    android:textColor="#E0B0A0"
-                    android:background="#33FFFFFF"
+                    android:textColorHint="@color/alma_copper"
+                    android:textColor="@color/alma_copper"
+                    android:background="@color/white_20"
                     android:padding="12dp"
                     android:inputType="textEmailAddress"
                     android:layout_marginBottom="24dp"/>
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_password_registro"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#E0B0A0"
+                    android:textColor="@color/alma_copper"
                     android:layout_marginBottom="8dp"/>
             <EditText
                     android:id="@+id/etPasswordRegistro"
@@ -119,9 +119,9 @@
                     android:layout_height="55dp"
                     android:hint="@string/txt_password_registro"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="#E0B0A0"
-                    android:textColor="#E0B0A0"
-                    android:background="#33FFFFFF"
+                    android:textColorHint="@color/alma_copper"
+                    android:textColor="@color/alma_copper"
+                    android:background="@color/white_20"
                     android:padding="12dp"
                     android:inputType="textPassword"
                     android:layout_marginBottom="48dp"/>
@@ -132,8 +132,8 @@
                     android:layout_height="55dp"
                     android:text="@string/btn_registrar"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:backgroundTint="#E0B0A0"
-                    android:textColor="#002F2F"
+                    android:backgroundTint="@color/alma_copper"
+                    android:textColor="@color/alma_button_text"
                     android:textStyle="bold"
                     android:layout_marginBottom="24dp"/>
 
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_ir_dashboard"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:layout_marginBottom="24dp"/>
 
         </LinearLayout>
