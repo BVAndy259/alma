@@ -1,16 +1,20 @@
-package com.almaquinta.controlusuarios;
+package com.almaquinta.controlusuarios.iu.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import android.widget.Button;
-import android.widget.TextView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.almaquinta.controlusuarios.R;
+import com.almaquinta.controlusuarios.iu.register.RegisterActivity;
+import com.almaquinta.controlusuarios.RendimientoCampanaActivity;
 
 public class DashboardActivity extends AppCompatActivity {
     private Button btnRegistrar;
@@ -29,11 +33,11 @@ public class DashboardActivity extends AppCompatActivity {
                 return insets;
             });
 
-            btnRegistrar = findViewById(R.id.btnRegistrar);
+            btnRegistrar = findViewById(R.id.btnRegister);
             btnRegistrar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(DashboardActivity.this, RegistroActivity.class));
+                    startActivity(new Intent(DashboardActivity.this, RegisterActivity.class));
                 }
             });
 

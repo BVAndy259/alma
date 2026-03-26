@@ -8,7 +8,7 @@
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/fondo_login"
+            android:src="@drawable/login_bg"
             android:scaleType="centerCrop" />
 
     <View
@@ -45,7 +45,7 @@
                     android:text="@string/subtitulo_registro"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textSize="14sp"
-                    android:textColor="@color/alma_copper"
+                    android:textColor="@color/titules"
                     android:layout_marginBottom="48dp" />
 
             <TextView
@@ -53,16 +53,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_nombres"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/alma_copper"
+                    android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
             <EditText
-                    android:id="@+id/etNombreRegistro"
+                    android:id="@+id/etRegisterName"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_nombres"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/alma_copper"
-                    android:textColor="@color/alma_copper"
+                    android:textColorHint="@color/text_primary"
+                    android:textColor="@color/text_primary"
                     android:background="@color/white_20"
                     android:padding="12dp"
                     android:layout_marginBottom="24dp"/>
@@ -72,16 +72,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_apellidos"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/alma_copper"
+                    android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
             <EditText
-                    android:id="@+id/etApellidoRegistro"
+                    android:id="@+id/etLastNameRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_apellidos"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/alma_copper"
-                    android:textColor="@color/alma_copper"
+                    android:textColorHint="@color/text_primary"
+                    android:textColor="@color/text_primary"
                     android:background="@color/white_20"
                     android:padding="12dp"
                     android:layout_marginBottom="24dp"/>
@@ -91,16 +91,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_correo"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/alma_copper"
+                    android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
             <EditText
-                    android:id="@+id/etCorreoRegistro"
+                    android:id="@+id/etEmailRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_correo"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/alma_copper"
-                    android:textColor="@color/alma_copper"
+                    android:textColorHint="@color/text_primary"
+                    android:textColor="@color/text_primary"
                     android:background="@color/white_20"
                     android:padding="12dp"
                     android:inputType="textEmailAddress"
@@ -111,42 +111,40 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_password_registro"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/alma_copper"
+                    android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
             <EditText
-                    android:id="@+id/etPasswordRegistro"
+                    android:id="@+id/etPasswordRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:hint="@string/txt_password_registro"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/alma_copper"
-                    android:textColor="@color/alma_copper"
+                    android:textColorHint="@color/text_primary"
+                    android:textColor="@color/text_primary"
                     android:background="@color/white_20"
                     android:padding="12dp"
                     android:inputType="textPassword"
                     android:layout_marginBottom="48dp"/>
 
             <Button
-                    android:id="@+id/btnRegistrar"
+                    android:id="@+id/btnRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:text="@string/btn_registrar"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:backgroundTint="@color/alma_copper"
+                    android:backgroundTint="@color/btns"
                     android:textColor="@color/alma_button_text"
                     android:textStyle="bold"
                     android:layout_marginBottom="24dp"/>
 
             <TextView
-                    android:id="@+id/lblIrDashboard"
+                    android:id="@+id/tvDashboard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lbl_ir_dashboard"
                     android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_primary"
                     android:layout_marginBottom="24dp"/>
-
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

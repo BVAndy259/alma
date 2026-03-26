@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_login"
-    tools:context=".MainActivity">
+    android:background="@drawable/login_bg"
+    tools:context=".iu.main.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -31,15 +31,15 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icono_alma"/>
+            app:srcCompat="@drawable/company_logo"/>
     <TextView
-        android:id="@+id/txtUsuarioLogin"
+        android:id="@+id/txtUserLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/lbl_usuario"
         android:fontFamily="@font/jomolhari_regular"
-        android:textColor="@color/alma_copper"
+        android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -55,15 +55,15 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsuarioLogin">
+        app:layout_constraintTop_toBottomOf="@+id/txtUserLogin">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsuarioLogin"
+            android:id="@+id/etUserLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_usuario"
-            android:textColorHint="@color/alma_copper"
-            android:textColor="@color/alma_copper"
+            android:textColorHint="@color/text_primary"
+            android:textColor="@color/text_primary"
             android:padding="12dp"
             android:fontFamily="@font/jomolhari_regular"
             android:inputType="textEmailAddress" />
@@ -76,7 +76,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/lbl_password_login"
         android:fontFamily="@font/jomolhari_regular"
-        android:textColor="@color/alma_copper"
+        android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -99,8 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_password_login"
-            android:textColorHint="@color/alma_copper"
-            android:textColor="@color/alma_copper"
+            android:textColorHint="@color/text_primary"
+            android:textColor="@color/text_primary"
             android:padding="12dp"
             android:fontFamily="@font/jomolhari_regular"
             android:inputType="textPassword" />
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/btn_ingresar"
-            android:backgroundTint="@color/alma_copper"
+            android:backgroundTint="@color/btns"
             android:textColor="@color/alma_button_text"
             android:fontFamily="@font/jomolhari_regular"
             android:textSize="18sp"
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:text="@string/titulo_area"
             android:fontFamily="@font/jomolhari_regular"
-            android:textColor="@color/alma_copper"
+            android:textColor="@color/titules"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
@@ -135,13 +135,13 @@
             app:layout_constraintVertical_bias="0.38"/>
 
     <TextView
-        android:id="@+id/lblRegistrar"
+        android:id="@+id/tvRegisterLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/jomolhari_regular"
         android:text="@string/lbl_crear_cuenta"
-        android:textColor="@color/alma_copper"
+        android:textColor="@color/text_primary"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"

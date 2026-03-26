@@ -1,4 +1,4 @@
-package com.almaquinta.controlusuarios;
+package com.almaquinta.controlusuarios.iu.main;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +18,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.almaquinta.controlusuarios.R;
+import com.almaquinta.controlusuarios.iu.register.RegisterActivity;
+import com.almaquinta.controlusuarios.iu.dashboard.DashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -26,12 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText etUsuario, etPassword;
-    private TextView lblIrRegistro;
-    private Button btnIniciar;
+    private EditText etUser, etPassword;
+    private TextView tvDashboard;
+    private Button btnRegister;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    private String usuario = "", password = "";
+    private String user = "", password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,49 +47,49 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        etUsuario = findViewById(R.id.etUsuarioLogin);
+        etUser = findViewById(R.id.etUserLogin);
         etPassword = findViewById(R.id.etPasswordLogin);
-        btnIniciar = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnLogin);
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setTitle("Espere por favor...");
-        lblIrRegistro = findViewById(R.id.lblRegistrar);
+        tvDashboard = findViewById(R.id.tvRegisterLogin);
 
-        lblIrRegistro.setOnClickListener(new View.OnClickListener() {
+        tvDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, RegistroActivity.class));
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
 
-        btnIniciar.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarDatos();
+                validateData();
             }
         });
     }
 
-    private void validarDatos() {
-        usuario = etUsuario.getText().toString().trim();
+    private void validateData() {
+        user = etUser.getText().toString().trim();
         password = etPassword.getText().toString().trim();
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(usuario).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(user).matches()) {
             Toast.makeText(this, "Ingrese correo válido", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Ingrese contraseña válida", Toast.LENGTH_SHORT).show();
         } else if (password.length() < 8) {
             Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
         } else {
-            logearUsuario();
+            logIn();
         }
     }
 
-    private void logearUsuario() {
+    private void logIn() {
         progressDialog.setMessage("Iniciando sesión...");
         progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(usuario, password)
+        firebaseAuth.signInWithEmailAndPassword(user, password)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

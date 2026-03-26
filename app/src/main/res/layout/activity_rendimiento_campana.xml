@@ -6,7 +6,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:fillViewport="true"
-		android:background="@drawable/fondo_login">
+		android:background="@drawable/login_bg">
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:id="@+id/main"
 		android:layout_width="match_parent"
@@ -255,7 +255,7 @@
 	</LinearLayout>
 		<Button
 				android:text="@string/btn_regresar_dashboard"
-				android:backgroundTint="@color/alma_copper"
+				android:backgroundTint="@color/btns"
 				android:textColor="@color/alma_button_text"
 				android:fontFamily="@font/jomolhari_regular"
 				android:textSize="13sp"

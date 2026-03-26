@@ -15,13 +15,13 @@
 				android:name=".RendimientoCampanaActivity"
 				android:exported="false"/>
 		<activity
-				android:name=".DashboardActivity"
+				android:name=".iu.dashboard.DashboardActivity"
 				android:exported="false"/>
 		<activity
-				android:name=".RegistroActivity"
+				android:name=".iu.register.RegisterActivity"
 				android:exported="false"/>
 		<activity
-				android:name=".PrecargadoActivity"
+				android:name=".iu.main.SplashActivity"
 				android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -30,7 +30,7 @@
 			</intent-filter>
 		</activity>
 		<activity
-				android:name=".MainActivity"
+				android:name=".iu.main.MainActivity"
 				android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>

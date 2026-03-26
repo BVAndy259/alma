@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="alma_copper">#E0B0A0</color>
+    <color name="alma_copper">#f0ba7f</color>
     <color name="alma_dark_teal">#001A1A</color>
-    <color name="alma_button_text">#002F2F</color>
+    <color name="alma_button_text">#0f5256</color>
+    <color name="btns">#fce8ae</color>
 
     <color name="scrim_heavy">#DD001A1A</color>
     <color name="scrim_medium">#BB001A1A</color>
 
+    <color name="titules">#e2b881</color>
+    <color name="text_primary">#9fbabb</color>
     <color name="white">#FFFFFF</color>
     <color name="white_70">#B3FFFFFF</color>
     <color name="white_53">#88FFFFFF</color>
