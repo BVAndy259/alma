@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +14,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.almaquinta.controlusuarios.R;
+import com.almaquinta.controlusuarios.data.model.AnalyticsSummary;
+import com.almaquinta.controlusuarios.data.repository.AnalyticsRepository;
+import com.almaquinta.controlusuarios.data.repository.AnalyticsRepositoryImpl;
 import com.almaquinta.controlusuarios.iu.register.RegisterActivity;
-import com.almaquinta.controlusuarios.RendimientoCampanaActivity;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class DashboardActivity extends AppCompatActivity {
-    private Button btnRegistrar;
-    private Button btnRendimiento;
+    private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue;
+    private Button btnRegister;
+    private AnalyticsRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +40,47 @@ public class DashboardActivity extends AppCompatActivity {
                 return insets;
             });
 
-            btnRegistrar = findViewById(R.id.btnRegister);
-            btnRegistrar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(DashboardActivity.this, RegisterActivity.class));
-                }
-            });
-
-            btnRendimiento = findViewById(R.id.btnRendimiento);
-            btnRendimiento.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(DashboardActivity.this, RendimientoCampanaActivity.class));
-                }
-            });
+            bindValues();
         }
+    }
+
+    private void bindValues() {
+        tvTotalVisitsValue = findViewById(R.id.tvTotalVisitsValue);
+        tvSessionsValue = findViewById(R.id.tvSessionsValue);
+        tvAssetsValue = findViewById(R.id.tvAssetsValue);
+        tvNewValue = findViewById(R.id.tvNewValue);
+        tvInteractionValue = findViewById(R.id.tvInteractionValue);
+        tvSourceValue = findViewById(R.id.tvSourceValue);
+
+        repository = new AnalyticsRepositoryImpl();
+
+        loadDashboard(2026, 2);
+
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, RegisterActivity.class));
+            }
+        });
+    }
+
+    private void loadDashboard(int year, int month) {
+        AnalyticsSummary s = repository.getSummary(year, month);
+
+        tvTotalVisitsValue.setText(formatInt(s.getVisits()));
+        tvSessionsValue.setText(formatInt(s.getSessions()));
+        tvAssetsValue.setText(formatInt(s.getActiveUsers()));
+        tvNewValue.setText(formatInt(s.getNewUsers()));
+        tvInteractionValue.setText(formatPercent(s.getEngagementRate()));
+        tvSourceValue.setText(s.getTopSource());
+    }
+
+    private String formatInt(int value) {
+        return NumberFormat.getNumberInstance(Locale.US).format(value);
+    }
+
+    private String formatPercent(double value) {
+        return String.format(Locale.US, "%.1f%%", value * 100.0);
     }
 }

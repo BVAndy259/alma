@@ -31,7 +31,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/titulo_registro"
+                    android:text="@string/register_title"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textSize="26sp"
                     android:textStyle="bold"
@@ -42,7 +42,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/subtitulo_registro"
+                    android:text="@string/subtitle_register"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textSize="14sp"
                     android:textColor="@color/titules"
@@ -51,7 +51,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_nombres"
+                    android:text="@string/lbl_name"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
@@ -59,7 +59,7 @@
                     android:id="@+id/etRegisterName"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="@string/txt_nombres"
+                    android:hint="@string/txt_name"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColorHint="@color/text_primary"
                     android:textColor="@color/text_primary"
@@ -70,7 +70,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_apellidos"
+                    android:text="@string/lbl_lastName"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
@@ -78,7 +78,7 @@
                     android:id="@+id/etLastNameRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="@string/txt_apellidos"
+                    android:hint="@string/txt_lastName"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColorHint="@color/text_primary"
                     android:textColor="@color/text_primary"
@@ -89,7 +89,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_correo"
+                    android:text="@string/lbl_email"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
@@ -97,7 +97,7 @@
                     android:id="@+id/etEmailRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="@string/txt_correo"
+                    android:hint="@string/txt_email"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColorHint="@color/text_primary"
                     android:textColor="@color/text_primary"
@@ -109,7 +109,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_password_registro"
+                    android:text="@string/lbl_password_register"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="8dp"/>
@@ -117,7 +117,7 @@
                     android:id="@+id/etPasswordRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="@string/txt_password_registro"
+                    android:hint="@string/txt_password_register"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColorHint="@color/text_primary"
                     android:textColor="@color/text_primary"
@@ -130,7 +130,7 @@
                     android:id="@+id/btnRegister"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:text="@string/btn_registrar"
+                    android:text="@string/btn_register"
                     android:fontFamily="@font/jomolhari_regular"
                     android:backgroundTint="@color/btns"
                     android:textColor="@color/alma_button_text"
@@ -141,7 +141,7 @@
                     android:id="@+id/tvDashboard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_ir_dashboard"
+                    android:text="@string/lbl_dashboard_register"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="24dp"/>

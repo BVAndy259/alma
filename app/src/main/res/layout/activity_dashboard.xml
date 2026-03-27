@@ -36,7 +36,7 @@
                         android:id="@+id/tvTitulo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/titulo_dashboard"
+                        android:text="@string/dashboard_title"
                         android:fontFamily="@font/jomolhari_regular"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -45,7 +45,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/reporte_dashboard"
+                        android:text="@string/dashboard_report"
                         android:fontFamily="@font/jomolhari_regular"
                         android:textColor="@color/titules"
                         android:textSize="14sp"
@@ -63,7 +63,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/trafico"
+                    android:text="@string/traffic"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/titules"
                     android:textSize="14sp"
@@ -96,12 +96,13 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/visitas_totales"
+                                android:text="@string/total_views"
                                 android:fontFamily="@font/jomolhari_regular"
                                 android:textColor="@color/white_70"
                                 android:textSize="12sp"/>
 
                         <TextView
+                            android:id="@+id/tvTotalVisitsValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="15,840"
@@ -132,12 +133,13 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/sesiones"
+                                android:text="@string/sessions"
                                 android:fontFamily="@font/jomolhari_regular"
                                 android:textColor="@color/white_70"
                                 android:textSize="12sp"/>
 
                         <TextView
+                            android:id="@+id/tvSessionsValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="12,150"
@@ -154,7 +156,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/comportamiento"
+                    android:text="@string/behavior"
                     android:fontFamily="@font/jomolhari_regular"
                     android:textColor="@color/titules"
                     android:textSize="14sp"
@@ -185,11 +187,12 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/activos"
+                                android:text="@string/assets"
                                 android:fontFamily="@font/jomolhari_regular"
                                 android:textColor="@color/white_70"
                                 android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/tvAssetsValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="8,420"
@@ -213,11 +216,12 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/nuevos"
+                                android:text="@string/news"
                                 android:fontFamily="@font/jomolhari_regular"
                                 android:textColor="@color/white_70"
                                 android:textSize="13sp"/>
                         <TextView
+                            android:id="@+id/tvNewValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3,105"
@@ -246,12 +250,13 @@
                             android:id="@+id/tvTasaLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/interaccion"
+                            android:text="@string/interaction"
                             android:fontFamily="@font/jomolhari_regular"
                             android:textColor="@color/white_70"
                             android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/tvInteractionValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="68.5%"
@@ -273,12 +278,13 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/fuente"
+                                android:text="@string/source"
                                 android:fontFamily="@font/jomolhari_regular"
                                 android:textColor="@color/white_70"
                                 android:textSize="12sp"/>
 
                         <TextView
+                            android:id="@+id/tvSourceValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Orgánico"
@@ -301,17 +307,6 @@
                     android:letterSpacing="0.1"
                     android:layout_marginBottom="12dp"/>
 
-            <Button
-                    android:id="@+id/btnRendimiento"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="@string/lbl_rendimiento"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:backgroundTint="@color/btns"
-                    android:textColor="@color/alma_button_text"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"
-                    app:cornerRadius="8dp"/>
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
