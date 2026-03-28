@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,30 +21,44 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.almaquinta.controlusuarios.R;
+import com.almaquinta.controlusuarios.data.model.UserRole;
+import com.almaquinta.controlusuarios.security.AuthorizationService;
 import com.almaquinta.controlusuarios.iu.dashboard.DashboardActivity;
 import com.almaquinta.controlusuarios.iu.main.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText etName, etLastName, etEmail, etPassword;
+    private Spinner spRole;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private TextView tvLogin;
     private Button btnRegister;
     private String name = "", lastName = "", email = "", password = "";
+    private UserRole selectedRole = UserRole.USER;
+    private final AuthorizationService authorizationService = new AuthorizationService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (!isAdminAllowed()) {
+            return;
+        }
+
         View rootView = findViewById(R.id.main);
         if (rootView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
@@ -56,10 +72,11 @@ public class RegisterActivity extends AppCompatActivity {
         etLastName = findViewById(R.id.etLastNameRegister);
         etEmail = findViewById(R.id.etEmailRegister);
         etPassword = findViewById(R.id.etPasswordRegister);
+        spRole = findViewById(R.id.spRoleRegister);
         tvLogin = findViewById(R.id.tvDashboard);
         btnRegister = findViewById(R.id.btnRegister);
+        setupRoleSpinner();
 
-        firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(RegisterActivity.this);
         progressDialog.setTitle("Espere por favor...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -67,7 +84,8 @@ public class RegisterActivity extends AppCompatActivity {
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
+                finish();
             }
         });
 
@@ -84,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
         lastName = etLastName.getText().toString().trim();
         email = etEmail.getText().toString().trim();
         password = etPassword.getText().toString().trim();
+        selectedRole = getSelectedRole();
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "El campo nombre está vacío", Toast.LENGTH_SHORT).show();
@@ -100,38 +119,54 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void register() {
         progressDialog.setMessage("Registrando Usuario");
-        progressDialog.dismiss();
+        progressDialog.show();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        saveUser();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Ocurrió un problema, revisa los campos", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        FirebaseApp secondaryApp = getOrCreateSecondaryApp();
+
+        FirebaseAuth secondaryAuth = FirebaseAuth.getInstance(secondaryApp);
+        secondaryAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> handleCreateUserResult(task, secondaryAuth, secondaryApp));
     }
 
-    private void saveUser() {
-        progressDialog.setMessage("Guardando Información...");
-        progressDialog.dismiss();
+    private FirebaseApp getOrCreateSecondaryApp() {
+        FirebaseOptions defaultOptions = FirebaseApp.getInstance().getOptions();
+        try {
+            return FirebaseApp.initializeApp(this, defaultOptions, "RegisterSecondaryApp");
+        } catch (IllegalStateException ex) {
+            return FirebaseApp.getInstance("RegisterSecondaryApp");
+        }
+    }
 
-        String uId = firebaseAuth.getUid();
-        HashMap<String, String> datosusuario = new HashMap<>();
+    private void handleCreateUserResult(Task<AuthResult> task, FirebaseAuth secondaryAuth, FirebaseApp secondaryApp) {
+        if (!task.isSuccessful() || task.getResult() == null || task.getResult().getUser() == null) {
+            progressDialog.dismiss();
+            String message = task.getException() != null ? task.getException().getMessage() : "Ocurrió un problema, revisa los campos";
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            cleanupSecondaryAuth(secondaryAuth, secondaryApp);
+            return;
+        }
+
+        String uId = task.getResult().getUser().getUid();
+        saveUser(uId, secondaryAuth, secondaryApp);
+    }
+
+    private void saveUser(String uId, FirebaseAuth secondaryAuth, FirebaseApp secondaryApp) {
+        progressDialog.setMessage("Guardando Información...");
+
+        Map<String, Object> datosusuario = new HashMap<>();
         datosusuario.put("uid", uId);
         datosusuario.put("nombre", name);
         datosusuario.put("apellido", lastName);
         datosusuario.put("correo", email);
-        datosusuario.put("password", password);
+        datosusuario.put("role", selectedRole.name());
+        datosusuario.put("active", true);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Usuarios");
         databaseReference.child(uId).setValue(datosusuario).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                progressDialog.dismiss();
+                cleanupSecondaryAuth(secondaryAuth, secondaryApp);
                 Toast.makeText(RegisterActivity.this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                 finish();
@@ -139,8 +174,54 @@ public class RegisterActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                cleanupSecondaryAuth(secondaryAuth, secondaryApp);
                 Toast.makeText(RegisterActivity.this, "Ocurrió un problema al guardar" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void cleanupSecondaryAuth(FirebaseAuth secondaryAuth, FirebaseApp secondaryApp) {
+        secondaryAuth.signOut();
+        secondaryApp.delete();
+    }
+
+    private boolean isAdminAllowed() {
+        try {
+            authorizationService.requireAdmin();
+            return true;
+        } catch (SecurityException ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+            Intent intent = firebaseAuth != null && firebaseAuth.getCurrentUser() != null
+                    ? new Intent(this, DashboardActivity.class)
+                    : new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return false;
+        }
+    }
+
+    private void setupRoleSpinner() {
+        String[] roles = new String[]{"Administrador", "Coordinador", "Empleado"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spRole.setAdapter(adapter);
+        spRole.setSelection(2);
+    }
+
+    private UserRole getSelectedRole() {
+        Object selected = spRole.getSelectedItem();
+        if (selected == null) {
+            return UserRole.USER;
+        }
+
+        String selectedText = selected.toString();
+        if ("Administrador".equalsIgnoreCase(selectedText)) {
+            return UserRole.ADMIN;
+        }
+        if ("Coordinador".equalsIgnoreCase(selectedText)) {
+            return UserRole.COORDINATOR;
+        }
+        return UserRole.USER;
     }
 }

@@ -18,6 +18,7 @@ import com.almaquinta.controlusuarios.data.model.AnalyticsSummary;
 import com.almaquinta.controlusuarios.data.repository.AnalyticsRepository;
 import com.almaquinta.controlusuarios.data.repository.AnalyticsRepositoryImpl;
 import com.almaquinta.controlusuarios.iu.register.RegisterActivity;
+import com.almaquinta.controlusuarios.session.SessionManager;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -57,12 +58,11 @@ public class DashboardActivity extends AppCompatActivity {
         loadDashboard(2026, 2);
 
         btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DashboardActivity.this, RegisterActivity.class));
-            }
-        });
+        boolean isAdmin = SessionManager.getInstance().isAdmin();
+        btnRegister.setVisibility(isAdmin ? View.VISIBLE : View.GONE);
+        if (isAdmin) {
+            btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));
+        }
     }
 
     private void loadDashboard(int year, int month) {
