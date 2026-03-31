@@ -12,9 +12,6 @@
 			android:supportsRtl="true"
 			android:theme="@style/Theme.Controlusuarios">
 		<activity
-				android:name=".RendimientoCampanaActivity"
-				android:exported="false"/>
-		<activity
 				android:name=".iu.dashboard.DashboardActivity"
 				android:exported="false"/>
 		<activity
