@@ -27,6 +27,7 @@
             android:layout_width="178dp"
             android:layout_height="130dp"
             android:layout_marginTop="60dp"
+            android:contentDescription="@string/todo"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="@+id/guideline6"

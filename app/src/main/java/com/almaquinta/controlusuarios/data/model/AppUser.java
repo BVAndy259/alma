@@ -1,10 +1,10 @@
 package com.almaquinta.controlusuarios.data.model;
 
 public class AppUser {
-    private String id;
-    private String name;
-    private String lastName;
-    private String email;
+    private final String id;
+    private final String name;
+    private final String lastName;
+    private final String email;
     private UserRole role;
     private boolean active;
 

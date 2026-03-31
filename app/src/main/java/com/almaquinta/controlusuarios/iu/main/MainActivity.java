@@ -36,7 +36,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private EditText etUser, etPassword;
-    private Button btnRegister;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private String user = "", password = "";
@@ -54,17 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         etUser = findViewById(R.id.etUserLogin);
         etPassword = findViewById(R.id.etPasswordLogin);
-        btnRegister = findViewById(R.id.btnLogin);
+        Button btnRegister = findViewById(R.id.btnLogin);
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setTitle("Espere por favor...");
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validateData();
-            }
-        });
+        btnRegister.setOnClickListener(v -> validateData());
     }
 
     private void validateData() {
@@ -87,23 +81,17 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(user, password)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            loadCurrentUserAndOpenDashboard(firebaseUser);
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(MainActivity.this, "Verifique si el correo o contraseña con correctos", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                .addOnCompleteListener(MainActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        loadCurrentUserAndOpenDashboard(firebaseUser);
+                    } else {
                         progressDialog.dismiss();
-                        Toast.makeText(MainActivity.this, "Ocurrió un problema", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Verifique si el correo o contraseña con correctos", Toast.LENGTH_SHORT).show();
                     }
+                }).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(MainActivity.this, "Ocurrió un problema", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -125,11 +113,10 @@ public class MainActivity extends AppCompatActivity {
                 String lastName = getSafeString(snapshot.child("apellido").getValue(), "");
                 String email = getSafeString(snapshot.child("correo").getValue(), firebaseUser.getEmail());
                 String roleRaw = getSafeString(snapshot.child("role").getValue(), "");
-                boolean active = getSafeBoolean(snapshot.child("active").getValue(), true);
+                boolean active = getSafeBoolean(snapshot.child("active").getValue());
 
                 UserRole role = parseRole(roleRaw);
                 if (roleRaw.isEmpty()) {
-                    // Compatibilidad con cuentas antiguas sin rol: se promueve la primera sesión a ADMIN.
                     userRef.child("role").setValue(UserRole.ADMIN.name());
                 }
                 AppUser appUser = new AppUser(lastName, firebaseUser.getUid(), name, email, role, active);
@@ -153,14 +140,14 @@ public class MainActivity extends AppCompatActivity {
         return value == null ? fallback : String.valueOf(value);
     }
 
-    private boolean getSafeBoolean(Object value, boolean fallback) {
+    private boolean getSafeBoolean(Object value) {
         if (value instanceof Boolean) {
             return (Boolean) value;
         }
         if (value instanceof String) {
             return Boolean.parseBoolean((String) value);
         }
-        return fallback;
+        return true;
     }
 
     private UserRole parseRole(String roleRaw) {

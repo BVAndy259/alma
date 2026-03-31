@@ -47,4 +47,5 @@
 	<string name="interaction">Tasa de Interacción</string>
 	<string name="source">Top Fuente</string>
 	<string name="lbl_dashboard">Registrar Nuevo Usuario</string>
+    <string name="todo">TODO</string>
 </resources>

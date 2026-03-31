@@ -30,7 +30,6 @@ import java.util.Locale;
 
 public class DashboardActivity extends AppCompatActivity {
     private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue;
-    private Button btnRegister, btnLogOut;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
@@ -66,16 +65,16 @@ public class DashboardActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        loadDashboard(2026, 2);
+        loadDashboard();
 
-        btnRegister = findViewById(R.id.btnRegister);
+        Button btnRegister = findViewById(R.id.btnRegister);
         boolean isAdmin = SessionManager.getInstance().isAdmin();
         btnRegister.setVisibility(isAdmin ? View.VISIBLE : View.GONE);
         if (isAdmin) {
             btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));
         }
 
-        btnLogOut = findViewById(R.id.btnLogOut);
+        Button btnLogOut = findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,12 +85,17 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void logOut() {
         firebaseAuth.signOut();
-        startActivity(new Intent(DashboardActivity.this, MainActivity.class));
-        Toast.makeText(this, "Sesiòn Cerrada Existosamente", Toast.LENGTH_SHORT).show();
+        SessionManager.getInstance().logout();
+
+        Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        Toast.makeText(this, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
-    private void loadDashboard(int year, int month) {
-        AnalyticsSummary s = repository.getSummary(year, month);
+    private void loadDashboard() {
+        AnalyticsSummary s = repository.getSummary(2026, 2);
 
         tvTotalVisitsValue.setText(formatInt(s.getVisits()));
         tvSessionsValue.setText(formatInt(s.getSessions()));
