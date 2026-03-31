@@ -6,6 +6,7 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,15 +18,22 @@ import com.almaquinta.controlusuarios.R;
 import com.almaquinta.controlusuarios.data.model.AnalyticsSummary;
 import com.almaquinta.controlusuarios.data.repository.AnalyticsRepository;
 import com.almaquinta.controlusuarios.data.repository.AnalyticsRepositoryImpl;
+import com.almaquinta.controlusuarios.iu.main.MainActivity;
 import com.almaquinta.controlusuarios.iu.register.RegisterActivity;
 import com.almaquinta.controlusuarios.session.SessionManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class DashboardActivity extends AppCompatActivity {
     private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue;
-    private Button btnRegister;
+    private Button btnRegister, btnLogOut;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference databaseReference;
     private AnalyticsRepository repository;
 
     @Override
@@ -55,6 +63,9 @@ public class DashboardActivity extends AppCompatActivity {
 
         repository = new AnalyticsRepositoryImpl();
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
         loadDashboard(2026, 2);
 
         btnRegister = findViewById(R.id.btnRegister);
@@ -63,6 +74,20 @@ public class DashboardActivity extends AppCompatActivity {
         if (isAdmin) {
             btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));
         }
+
+        btnLogOut = findViewById(R.id.btnLogOut);
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
+            }
+        });
+    }
+
+    private void logOut() {
+        firebaseAuth.signOut();
+        startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+        Toast.makeText(this, "Sesiòn Cerrada Existosamente", Toast.LENGTH_SHORT).show();
     }
 
     private void loadDashboard(int year, int month) {

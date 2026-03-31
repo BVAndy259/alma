@@ -318,6 +318,18 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"
                 app:cornerRadius="8dp"/>
+
+            <Button
+                android:id="@+id/btnLogOut"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="@string/btn_log_out"
+                android:fontFamily="@font/jomolhari_regular"
+                android:backgroundTint="@color/btns"
+                android:textColor="@color/alma_button_text"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                app:cornerRadius="8dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
