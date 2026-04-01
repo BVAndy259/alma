@@ -13,6 +13,6 @@ public class CreateUserByAdminUseCase {
 
     public AppUser execute(String id, String name, String lastName, String email) {
         authorizationService.requireAdmin();
-        return new AppUser(lastName, id, name, email, UserRole.USER, true);
+        return new AppUser(lastName, id, name, email, UserRole.EMPLOYEE, true);
     }
 }

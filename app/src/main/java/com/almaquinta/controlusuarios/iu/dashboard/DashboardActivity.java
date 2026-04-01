@@ -155,7 +155,7 @@ public class DashboardActivity extends AppCompatActivity {
                     if (activeObj instanceof Boolean) active = (Boolean) activeObj;
                     else if (activeObj instanceof String) active = Boolean.parseBoolean((String) activeObj);
 
-                    UserRole role = UserRole.USER;
+                    UserRole role = UserRole.EMPLOYEE;
                     if ("ADMIN".equalsIgnoreCase(roleRaw)) role = UserRole.ADMIN;
                     else if ("COORDINATOR".equalsIgnoreCase(roleRaw)) role = UserRole.COORDINATOR;
 
@@ -179,7 +179,7 @@ public class DashboardActivity extends AppCompatActivity {
         String msg = "Hola, " + user.getName().trim() + " " + user.getLastName().trim();
         userDash.setText(msg);
 
-        String rol = "Usuario";
+        String rol = "Empleado";
         if (user.getRole() == UserRole.ADMIN) rol = "Administrador";
         else if (user.getRole() == UserRole.COORDINATOR) rol = "Coordinador";
 

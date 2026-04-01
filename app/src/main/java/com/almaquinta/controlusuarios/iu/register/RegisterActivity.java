@@ -43,10 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner spRole;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    private TextView tvLogin;
-    private Button btnRegister;
     private String name = "", lastName = "", email = "", password = "";
-    private UserRole selectedRole = UserRole.USER;
+    private UserRole selectedRole = UserRole.EMPLOYEE;
     private final AuthorizationService authorizationService = new AuthorizationService();
 
     @Override
@@ -68,13 +66,17 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }
 
+        bindValues();
+    }
+
+    private void bindValues() {
         etName = findViewById(R.id.etRegisterName);
         etLastName = findViewById(R.id.etLastNameRegister);
         etEmail = findViewById(R.id.etEmailRegister);
         etPassword = findViewById(R.id.etPasswordRegister);
         spRole = findViewById(R.id.spRoleRegister);
-        tvLogin = findViewById(R.id.tvDashboard);
-        btnRegister = findViewById(R.id.btnRegister);
+        TextView tvLogin = findViewById(R.id.tvDashboard);
+        Button btnRegister = findViewById(R.id.btnRegister);
         setupRoleSpinner();
 
         progressDialog = new ProgressDialog(RegisterActivity.this);
@@ -212,7 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
     private UserRole getSelectedRole() {
         Object selected = spRole.getSelectedItem();
         if (selected == null) {
-            return UserRole.USER;
+            return UserRole.EMPLOYEE;
         }
 
         String selectedText = selected.toString();
@@ -222,6 +224,6 @@ public class RegisterActivity extends AppCompatActivity {
         if ("Coordinador".equalsIgnoreCase(selectedText)) {
             return UserRole.COORDINATOR;
         }
-        return UserRole.USER;
+        return UserRole.EMPLOYEE;
     }
 }

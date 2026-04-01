@@ -117,6 +117,6 @@ public class SplashActivity extends AppCompatActivity {
         if (roleRaw == null || roleRaw.trim().isEmpty()) {
             return UserRole.ADMIN;
         }
-        return UserRole.USER;
+        return UserRole.EMPLOYEE;
     }
 }
