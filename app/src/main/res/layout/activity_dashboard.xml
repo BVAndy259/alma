@@ -79,15 +79,6 @@
                             android:textSize="14sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/ivLogo"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:contentDescription="@string/todo"
-                        android:src="@drawable/company_lg"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"/>
                 </RelativeLayout>
 
                 <TextView
@@ -181,7 +172,6 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -329,7 +319,6 @@
         </ScrollView>
     </RelativeLayout>
 
-    <!-- Panel Lateral (Menu) -->
     <LinearLayout
         android:id="@+id/nav_view"
         android:layout_width="290dp"
@@ -414,5 +403,4 @@
 
         </LinearLayout>
     </LinearLayout>
-
 </androidx.drawerlayout.widget.DrawerLayout>

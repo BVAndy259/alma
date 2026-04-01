@@ -26,11 +26,11 @@ import com.almaquinta.controlusuarios.iu.register.RegisterActivity;
 import com.almaquinta.controlusuarios.session.SessionManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +44,6 @@ public class DashboardActivity extends AppCompatActivity {
     private TextView userDash, userRoleDash;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private DatabaseReference databaseReference;
     private AnalyticsRepository repository;
 
     private DrawerLayout drawerLayout;
@@ -67,7 +66,6 @@ public class DashboardActivity extends AppCompatActivity {
             bindValues();
         }
 
-        // Listener para abrir el menú lateral
         ImageView ivMenu = findViewById(R.id.ivMenu);
         if (ivMenu != null) {
             ivMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
@@ -111,12 +109,7 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         Button btnLogOut = findViewById(R.id.btnLogOut);
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logOut();
-            }
-        });
+        btnLogOut.setOnClickListener(view -> logOut());
     }
 
     private void logOut() {
@@ -146,7 +139,6 @@ public class DashboardActivity extends AppCompatActivity {
         if (currentUser != null) {
             setupUserUI(currentUser);
         } else if (firebaseUser != null) {
-            // Hot-reload guard: if memory loses SessionManager but Firebase retains auth
             DatabaseReference userRef = FirebaseDatabase.getInstance()
                     .getReference("Usuarios")
                     .child(firebaseUser.getUid());

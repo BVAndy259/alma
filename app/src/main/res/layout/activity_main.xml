@@ -23,16 +23,29 @@
         app:layout_constraintGuide_end="30dp" />
 
     <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="178dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="60dp"
-            android:contentDescription="@string/todo"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/company_lg"/>
+        android:id="@+id/imageView"
+        android:layout_width="178dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/company_lg"/>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/area_title"
+        android:fontFamily="@font/jomolhari_regular"
+        android:textColor="@color/titules"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <TextView
         android:id="@+id/txtUserLogin"
         android:layout_width="wrap_content"
@@ -44,28 +57,31 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lblUsuarioLogin"
-        android:layout_width="321dp"
-        android:layout_height="92dp"
-        app:boxBackgroundColor="#33FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/bg_input_rounded"
+        app:hintEnabled="false"
+        app:boxBackgroundMode="none"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toBottomOf="@+id/txtUserLogin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUserLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/txt_user"
             android:textColorHint="@color/text_primary"
-            android:textColor="@color/text_primary"
+            android:textColor="@color/white"
             android:padding="12dp"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/jomolhari_regular"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -74,66 +90,59 @@
         android:id="@+id/txtPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:text="@string/lbl_password_login"
         android:fontFamily="@font/jomolhari_regular"
         android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toBottomOf="@+id/lblUsuarioLogin" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lblPasswordLogin"
-        android:layout_width="319dp"
-        android:layout_height="99dp"
-        app:boxBackgroundColor="#33FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/bg_input_rounded"
+        app:hintEnabled="false"
+        app:boxBackgroundMode="none"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/text_primary"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/txtPasswordLogin"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswordLogin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPasswordLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/txt_password_login"
             android:textColorHint="@color/text_primary"
-            android:textColor="@color/text_primary"
+            android:textColor="@color/white"
             android:padding="12dp"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/jomolhari_regular"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/btn_logIn"
-            android:backgroundTint="@color/btns"
-            android:textColor="@color/alma_button_text"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toBottomOf="@+id/lblPasswordLogin"/>
-    <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/area_title"
-            android:fontFamily="@font/jomolhari_regular"
-            android:textColor="@color/titules"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.38"/>
+        android:id="@+id/btnLogin"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="84dp"
+        android:backgroundTint="@color/btns"
+        android:fontFamily="@font/jomolhari_regular"
+        android:text="@string/btn_logIn"
+        android:textColor="@color/alma_button_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/lblPasswordLogin" />
 
     <TextView
         android:id="@+id/tvRegisterLogin"

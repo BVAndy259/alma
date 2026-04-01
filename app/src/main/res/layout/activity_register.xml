@@ -1,177 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/login_bg"
-            android:scaleType="centerCrop" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/login_bg"
+        android:scaleType="centerCrop" />
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#BB001A1A" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#BB001A1A" />
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_title"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subtitle_register"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textSize="14sp"
+                android:textColor="@color/titules"
+                android:layout_marginBottom="48dp" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:padding="32dp">
+                android:text="@string/lbl_name"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/register_title"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="16dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/subtitle_register"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textSize="14sp"
-                    android:textColor="@color/titules"
-                    android:layout_marginBottom="48dp" />
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_name"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp"/>
             <EditText
-                    android:id="@+id/etRegisterName"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:hint="@string/txt_name"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/text_primary"
-                    android:textColor="@color/text_primary"
-                    android:background="@color/white_20"
-                    android:padding="12dp"
-                    android:layout_marginBottom="24dp"/>
+                android:id="@+id/etRegisterName"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/txt_name"
+                android:inputType="text"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColorHint="@color/text_primary"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_input_rounded"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"/>
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_lastName"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_lastName"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp"/>
+
             <EditText
-                    android:id="@+id/etLastNameRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:hint="@string/txt_lastName"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/text_primary"
-                    android:textColor="@color/text_primary"
-                    android:background="@color/white_20"
-                    android:padding="12dp"
-                    android:layout_marginBottom="24dp"/>
+                android:id="@+id/etLastNameRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/txt_lastName"
+                android:inputType="text"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColorHint="@color/text_primary"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_input_rounded"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"/>
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_email"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_email"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp"/>
+
             <EditText
-                    android:id="@+id/etEmailRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:hint="@string/txt_email"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColorHint="@color/text_primary"
-                    android:textColor="@color/text_primary"
-                    android:background="@color/white_20"
-                    android:padding="12dp"
-                    android:inputType="textEmailAddress"
-                    android:layout_marginBottom="24dp"/>
+                android:id="@+id/etEmailRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/txt_email"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColorHint="@color/text_primary"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_input_rounded"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="24dp"/>
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_password_register"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_password_register"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp"/>
+
             <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginBottom="24dp"
-                    app:boxBackgroundMode="filled"
-                    app:boxBackgroundColor="@color/white_20"
-                    app:passwordToggleEnabled="true">
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_input_rounded"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="none"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/text_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPasswordRegister"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/txt_password_register"
-                        android:fontFamily="@font/jomolhari_regular"
-                        android:textColorHint="@color/text_primary"
-                        android:textColor="@color/text_primary"
-                        android:padding="12dp"
-                        android:inputType="textPassword"/>
+                    android:id="@+id/etPasswordRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/txt_password_register"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColorHint="@color/text_primary"
+                    android:textColor="@color/text_primary"
+                    android:background="@android:color/transparent"
+                    android:padding="12dp"
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Rol"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="8dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_rol"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp"/>
 
             <Spinner
-                    android:id="@+id/spRoleRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@color/white_20"
-                    android:textColor="@color/alma_button_text"
-                    android:popupBackground="@color/white"
-                    android:layout_marginBottom="40dp"/>
+                android:id="@+id/spRoleRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/bg_input_rounded"
+                android:textColor="@color/alma_button_text"
+                android:popupBackground="@color/white"
+                android:layout_marginBottom="40dp"/>
 
             <Button
-                    android:id="@+id/btnRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="@string/btn_register"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:backgroundTint="@color/btns"
-                    android:textColor="@color/alma_button_text"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="24dp"/>
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="@string/btn_register"
+                android:fontFamily="@font/jomolhari_regular"
+                android:backgroundTint="@color/btns"
+                android:textColor="@color/alma_button_text"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
 
             <TextView
-                    android:id="@+id/tvDashboard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_dashboard_register"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="24dp"/>
+                android:id="@+id/tvDashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_dashboard_register"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="24dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

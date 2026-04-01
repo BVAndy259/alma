@@ -30,6 +30,7 @@
 	<string name="txt_lastName">Ingrese Apellido</string>
 	<string name="lbl_email">Correo Corporativo</string>
 	<string name="txt_email">ejemplo@almaquinta.com</string>
+	<string name="txt_rol">Rol</string>
 	<string name="lbl_password_register">Contraseña</string>
 	<string name="txt_password_register">Asigne una contraseña</string>
 	<string name="btn_register">Registrar en Sistema</string>
