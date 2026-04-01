@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.widget.Button;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,19 +31,32 @@ import com.google.firebase.database.DatabaseReference;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import androidx.annotation.NonNull;
+import com.almaquinta.controlusuarios.data.model.AppUser;
+import com.almaquinta.controlusuarios.data.model.UserRole;
+
 public class DashboardActivity extends AppCompatActivity {
     private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue;
+    private TextView userDash, userRoleDash;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private AnalyticsRepository repository;
+
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
-        View rootView = findViewById(R.id.main);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        View rootView = findViewById(R.id.scrollContent);
         if (rootView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -49,6 +65,21 @@ public class DashboardActivity extends AppCompatActivity {
             });
 
             bindValues();
+        }
+
+        // Listener para abrir el menú lateral
+        ImageView ivMenu = findViewById(R.id.ivMenu);
+        if (ivMenu != null) {
+            ivMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
+
+        View navView = findViewById(R.id.nav_view);
+        if (navView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(navView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
         }
     }
 
@@ -60,10 +91,15 @@ public class DashboardActivity extends AppCompatActivity {
         tvInteractionValue = findViewById(R.id.tvInteractionValue);
         tvSourceValue = findViewById(R.id.tvSourceValue);
 
+        userDash = findViewById(R.id.userDash);
+        userRoleDash = findViewById(R.id.userRoleDash);
+
         repository = new AnalyticsRepositoryImpl();
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        loadUserData();
 
         loadDashboard();
 
@@ -103,6 +139,63 @@ public class DashboardActivity extends AppCompatActivity {
         tvNewValue.setText(formatInt(s.getNewUsers()));
         tvInteractionValue.setText(formatPercent(s.getEngagementRate()));
         tvSourceValue.setText(s.getTopSource());
+    }
+
+    private void loadUserData() {
+        AppUser currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            setupUserUI(currentUser);
+        } else if (firebaseUser != null) {
+            // Hot-reload guard: if memory loses SessionManager but Firebase retains auth
+            DatabaseReference userRef = FirebaseDatabase.getInstance()
+                    .getReference("Usuarios")
+                    .child(firebaseUser.getUid());
+
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String name = getString(snapshot, "nombre", "");
+                    String lastName = getString(snapshot, "apellido", "");
+                    String email = getString(snapshot, "correo", firebaseUser.getEmail());
+                    String roleRaw = getString(snapshot, "role", "");
+                    Object activeObj = snapshot.child("active").getValue();
+                    boolean active = true;
+                    if (activeObj instanceof Boolean) active = (Boolean) activeObj;
+                    else if (activeObj instanceof String) active = Boolean.parseBoolean((String) activeObj);
+
+                    UserRole role = UserRole.USER;
+                    if ("ADMIN".equalsIgnoreCase(roleRaw)) role = UserRole.ADMIN;
+                    else if ("COORDINATOR".equalsIgnoreCase(roleRaw)) role = UserRole.COORDINATOR;
+
+                    AppUser appUser = new AppUser(lastName, firebaseUser.getUid(), name, email, role, active);
+                    SessionManager.getInstance().setCurrentUser(appUser);
+                    setupUserUI(appUser);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
+        }
+    }
+
+    private String getString(DataSnapshot snap, String key, String def) {
+        Object val = snap.child(key).getValue();
+        return val != null ? String.valueOf(val) : def;
+    }
+
+    private void setupUserUI(AppUser user) {
+        String msg = "Hola, " + user.getName().trim() + " " + user.getLastName().trim();
+        userDash.setText(msg);
+
+        String rol = "Usuario";
+        if (user.getRole() == UserRole.ADMIN) rol = "Administrador";
+        else if (user.getRole() == UserRole.COORDINATOR) rol = "Coordinador";
+
+        userRoleDash.setText(rol);
+
+        Button btnRegister = findViewById(R.id.btnRegister);
+        boolean isAdmin = SessionManager.getInstance().isAdmin();
+        btnRegister.setVisibility(isAdmin ? View.VISIBLE : View.GONE);
     }
 
     private String formatInt(int value) {

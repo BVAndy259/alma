@@ -32,7 +32,7 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/company_logo"/>
+            app:srcCompat="@drawable/company_lg"/>
     <TextView
         android:id="@+id/txtUserLogin"
         android:layout_width="wrap_content"

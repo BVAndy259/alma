@@ -1,302 +1,381 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.drawerlayout.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/login_bg"
-        android:scaleType="centerCrop" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#DD001A1A" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_height="match_parent"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/login_bg"
+            android:scaleType="centerCrop" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DD001A1A" />
 
-                <TextView
-                    android:id="@+id/tvTitulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dashboard_title"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dashboard_report"
-                    android:fontFamily="@font/jomolhari_regular"
-                    android:textColor="@color/titules"
-                    android:textSize="14sp"
-                    android:layout_below="@id/tvTitulo"
-                    android:layout_marginTop="4dp"/>
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:contentDescription="@string/todo"
-                    android:src="@drawable/company_logo"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/traffic"
-                android:fontFamily="@font/jomolhari_regular"
-                android:textColor="@color/titules"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="12dp"/>
+        <ScrollView
+            android:id="@+id/scrollContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#26FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginBottom="32dp">
+
+                    <ImageView
+                        android:id="@+id/ivMenu"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/menu_ic"
+                        app:tint="@color/titules"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="Menu"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center">
+                        android:layout_toEndOf="@id/ivMenu"
+                        android:layout_toStartOf="@+id/ivLogo"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp">
 
                         <TextView
+                            android:id="@+id/tvTitulo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/total_views"
+                            android:text="@string/dashboard_title"
                             android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white_70"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:id="@+id/tvTotalVisitsValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15,840"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white"
-                            android:textSize="26sp"
+                            android:textSize="24sp"
                             android:textStyle="bold"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_report"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/titules"
+                            android:textSize="14sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
+                    <ImageView
+                        android:id="@+id/ivLogo"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/company_lg"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#26FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    android:layout_marginStart="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sessions"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white_70"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:id="@+id/tvSessionsValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12,150"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white"
-                            android:textSize="26sp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/behavior"
-                android:fontFamily="@font/jomolhari_regular"
-                android:textColor="@color/titules"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="12dp"/>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#26FFFFFF"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                android:layout_marginBottom="16dp">
+                    android:text="@string/traffic"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="@color/titules"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="12dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:weightSum="2">
+                    android:layout_marginBottom="24dp">
 
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/assets"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white_70"
-                            android:textSize="13sp"/>
-                        <TextView
-                            android:id="@+id/tvAssetsValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="8,420"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/titules"
-                            android:textSize="22sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
+                        app:cardBackgroundColor="#26FFFFFF"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginEnd="8dp">
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white_30"
-                        android:layout_marginHorizontal="16dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
 
-                    <LinearLayout
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/total_views"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white_70"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalVisitsValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="15,840"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white"
+                                android:textSize="26sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
+                        app:cardBackgroundColor="#26FFFFFF"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginStart="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/news"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white_70"
-                            android:textSize="13sp"/>
-                        <TextView
-                            android:id="@+id/tvNewValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3,105"
-                            android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/white"
-                            android:textSize="22sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sessions"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white_70"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tvSessionsValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12,150"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white"
+                                android:textSize="26sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#26FFFFFF"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                android:layout_marginBottom="32dp">
 
-                <RelativeLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/behavior"
+                    android:fontFamily="@font/jomolhari_regular"
+                    android:textColor="@color/titules"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="12dp"/>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:id="@+id/tvTasaLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/interaction"
-                        android:fontFamily="@font/jomolhari_regular"
-                        android:textColor="@color/white_70"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:id="@+id/tvInteractionValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="68.5%"
-                        android:fontFamily="@font/jomolhari_regular"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_below="@id/tvTasaLabel"
-                        android:layout_marginTop="2dp"/>
+                    app:cardBackgroundColor="#26FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    android:layout_marginBottom="16dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="end"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true">
+                        android:orientation="horizontal"
+                        android:padding="20dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/assets"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white_70"
+                                android:textSize="13sp"/>
+                            <TextView
+                                android:id="@+id/tvAssetsValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="8,420"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/titules"
+                                android:textSize="22sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white_30"
+                            android:layout_marginHorizontal="16dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/news"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white_70"
+                                android:textSize="13sp"/>
+                            <TextView
+                                android:id="@+id/tvNewValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3,105"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white"
+                                android:textSize="22sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#26FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    android:layout_marginBottom="32dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
 
                         <TextView
+                            android:id="@+id/tvTasaLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/source"
+                            android:text="@string/interaction"
                             android:fontFamily="@font/jomolhari_regular"
                             android:textColor="@color/white_70"
-                            android:textSize="12sp"/>
+                            android:textSize="14sp"/>
 
                         <TextView
-                            android:id="@+id/tvSourceValue"
+                            android:id="@+id/tvInteractionValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Orgánico"
+                            android:text="68.5%"
                             android:fontFamily="@font/jomolhari_regular"
-                            android:textColor="@color/titules"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_below="@id/tvTasaLabel"
+                            android:layout_marginTop="2dp"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/source"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/white_70"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tvSourceValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Orgánico"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:textColor="@color/titules"
+                                android:textSize="16sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <!-- Panel Lateral (Menu) -->
+    <LinearLayout
+        android:id="@+id/nav_view"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#EF001A1A"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/company_lg"
+                android:layout_marginBottom="24dp"
+                android:contentDescription="Logo de la compañia"/>
+
+            <TextView
+                android:id="@+id/userDash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/userRoleDash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rol"
+                android:fontFamily="@font/jomolhari_regular"
+                android:textSize="14sp"
+                android:textColor="@color/titules"
+                android:layout_marginBottom="32dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white_30"
+                android:layout_marginBottom="32dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -307,7 +386,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="16dp"/>
 
             <Button
                 android:id="@+id/btnRegister"
@@ -332,6 +411,8 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"
                 app:cornerRadius="8dp"/>
+
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
