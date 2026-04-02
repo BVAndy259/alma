@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "controlusuarios"
+rootProject.name = "analytics"
 include ':app'

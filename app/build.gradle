@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.almaquinta.controlusuarios'
+    namespace 'com.almaquinta.analytics'
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.almaquinta.controlusuarios"
+        applicationId "com.almaquinta.analytics"
         minSdk 24
         targetSdk 36
         versionCode 1
