@@ -48,5 +48,11 @@
 	<string name="interaction">Tasa de Interacción</string>
 	<string name="source">Top Fuente</string>
 	<string name="lbl_dashboard">Registrar Nuevo Usuario</string>
+	<string name="filter_period">Filtrar periodo</string>
+	<string name="trend_title">Tendencia mensual</string>
+	<string name="trend_subtitle">Comparativa de visitas y sesiones (ultimos 12 meses)</string>
+	<string name="sources_title">Fuentes principales del periodo</string>
+	<string name="no_source_data">Sin datos de fuentes para el filtro seleccionado.</string>
+	<string name="btn_advanced">Analisis Avanzado (Admin)</string>
     <string name="todo">TODO</string>
 </resources>
