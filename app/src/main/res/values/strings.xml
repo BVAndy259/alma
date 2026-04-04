@@ -38,7 +38,20 @@
 
 	<!-- Dashboard -->
 	<string name="dashboard_title">Dashboard Analytics</string>
-	<string name="dashboard_report">Reporte: Febrero 2026</string>
+	<string name="dashboard_report">Resumen de los últimos 3 meses</string>
+	<string name="dashboard_no_data_available">Sin datos disponibles</string>
+	<string name="dashboard_period_single">Resumen: %1$s %2$d</string>
+	<string name="dashboard_period_range">Resumen: %1$s %2$d - %3$s %4$d</string>
+	<string name="dashboard_month_year">%1$s %2$d</string>
+	<string name="dashboard_menu_desc">Abrir menú</string>
+	<string name="dashboard_logo_desc">Logo de la compañía</string>
+	<string name="dashboard_quick_actions">ACCIONES RÁPIDAS</string>
+	<string name="dashboard_placeholder_visits">0</string>
+	<string name="dashboard_placeholder_sessions">0</string>
+	<string name="dashboard_placeholder_active">0</string>
+	<string name="dashboard_placeholder_new">0</string>
+	<string name="dashboard_placeholder_interaction">0.0%%</string>
+	<string name="dashboard_placeholder_source">Sin datos</string>
 	<string name="traffic">TRÁFICO MENSUAL</string>
 	<string name="total_views">Visitas Totales</string>
 	<string name="sessions">Sesiones</string>

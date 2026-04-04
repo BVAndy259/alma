@@ -36,7 +36,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -54,6 +53,8 @@ import com.almaquinta.analytics.data.model.AppUser;
 import com.almaquinta.analytics.data.model.UserRole;
 
 public class DashboardActivity extends AppCompatActivity {
+    private static final int DASHBOARD_MONTH_LIMIT = 3;
+
     private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue;
     private TextView userDash, userRoleDash;
     private TextView tvDashboardReport, tvSelectedPeriod, tvSourcesList;
@@ -290,7 +291,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void applyCurrentFilter() {
         if (allSummaries.isEmpty()) {
             renderSummary(new AnalyticsSummary(0, 0, 0, 0, 0, 0, 0d, "Sin datos"));
-            tvSelectedPeriod.setText("Sin datos disponibles");
+            tvSelectedPeriod.setText(getString(R.string.dashboard_no_data_available));
             tvDashboardReport.setText(getString(R.string.dashboard_report));
             tvSourcesList.setText(getString(R.string.no_source_data));
             return;
@@ -298,27 +299,34 @@ public class DashboardActivity extends AppCompatActivity {
 
         List<AnalyticsSummary> filtered = filterSummaries();
         AnalyticsSummary current = aggregateSummaries(filtered);
+        List<SourceMetric> recentSources = aggregateSources(filtered);
+        if (!recentSources.isEmpty()) {
+            current = new AnalyticsSummary(
+                    current.getYear(),
+                    current.getMonth(),
+                    current.getVisits(),
+                    current.getSessions(),
+                    current.getActiveUsers(),
+                    current.getNewUsers(),
+                    current.getEngagementRate(),
+                    recentSources.get(0).getSource()
+            );
+        }
         renderSummary(current);
         renderTrendBars(filtered);
         renderSources(filtered);
 
-        String periodLabel = buildPeriodLabel();
+        String periodLabel = buildPeriodLabel(filtered);
         tvSelectedPeriod.setText(periodLabel);
         tvDashboardReport.setText(periodLabel);
     }
 
     private List<AnalyticsSummary> filterSummaries() {
         List<AnalyticsSummary> filtered = new ArrayList<>();
-        for (AnalyticsSummary summary : allSummaries) {
-            boolean matchYear = selectedYear == 0 || summary.getYear() == selectedYear;
-            boolean matchMonth = selectedMonth == 0 || summary.getMonth() == selectedMonth;
-            if (matchYear && matchMonth) filtered.add(summary);
+        int count = Math.min(DASHBOARD_MONTH_LIMIT, allSummaries.size());
+        for (int i = 0; i < count; i++) {
+            filtered.add(allSummaries.get(i));
         }
-
-        filtered.sort((a, b) -> {
-            if (b.getYear() != a.getYear()) return b.getYear() - a.getYear();
-            return b.getMonth() - a.getMonth();
-        });
         return filtered;
     }
 
@@ -342,7 +350,7 @@ public class DashboardActivity extends AppCompatActivity {
             rateBase += item.getActiveUsers();
 
             String source = item.getTopSource();
-            sourceActive.put(source, sourceActive.getOrDefault(source, 0) + item.getActiveUsers());
+            sourceActive.compute(source, (key, value) -> value == null ? item.getActiveUsers() : value + item.getActiveUsers());
         }
 
         String topSource = "Sin datos";
@@ -389,7 +397,7 @@ public class DashboardActivity extends AppCompatActivity {
             row.setPadding(0, 0, 0, 12);
 
             TextView label = new TextView(this);
-            label.setText(monthLabel(item.getMonth()) + " " + item.getYear());
+            label.setText(getString(R.string.dashboard_month_year, monthLabel(item.getMonth()), item.getYear()));
             label.setTextColor(getColor(R.color.white_70));
             label.setTextSize(12f);
             row.addView(label);
@@ -468,11 +476,22 @@ public class DashboardActivity extends AppCompatActivity {
         return out;
     }
 
-    private String buildPeriodLabel() {
-        if (selectedYear == 0 && selectedMonth == 0) return "Reporte: todos los años y meses";
-        if (selectedYear != 0 && selectedMonth == 0) return "Reporte: " + selectedYear + " (todos los meses)";
-        if (selectedYear == 0) return "Reporte: " + monthLabel(selectedMonth) + " (todos los años)";
-        return "Reporte: " + monthLabel(selectedMonth) + " " + selectedYear;
+    private String buildPeriodLabel(List<AnalyticsSummary> filtered) {
+        if (filtered == null || filtered.isEmpty()) return "Sin datos disponibles";
+
+        AnalyticsSummary newest = filtered.get(0);
+        AnalyticsSummary oldest = filtered.get(filtered.size() - 1);
+        if (filtered.size() == 1) {
+            return getString(R.string.dashboard_period_single, monthLabel(newest.getMonth()), newest.getYear());
+        }
+
+        return getString(
+                R.string.dashboard_period_range,
+                monthLabel(oldest.getMonth()),
+                oldest.getYear(),
+                monthLabel(newest.getMonth()),
+                newest.getYear()
+        );
     }
 
     private int parseYearOption(String value) {
