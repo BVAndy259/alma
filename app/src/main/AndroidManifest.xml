@@ -12,6 +12,12 @@
 			android:supportsRtl="true"
 			android:theme="@style/Theme.Controlusuarios">
 		<activity
+				android:name=".iu.viewspermonth.ViewsPerMonthActivity"
+				android:exported="false"/>
+		<activity
+				android:name=".iu.activenew.ActiveNewUsersActivity"
+				android:exported="false"/>
+		<activity
 				android:name=".iu.dashboard.DashboardActivity"
 				android:exported="false"/>
 		<activity

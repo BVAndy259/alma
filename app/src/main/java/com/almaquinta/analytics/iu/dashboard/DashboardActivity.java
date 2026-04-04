@@ -27,8 +27,10 @@ import com.almaquinta.analytics.data.model.AnalyticsSummary;
 import com.almaquinta.analytics.data.model.SourceMetric;
 import com.almaquinta.analytics.data.repository.AnalyticsRepository;
 import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
+import com.almaquinta.analytics.iu.activenew.ActiveNewUsersActivity;
 import com.almaquinta.analytics.iu.main.MainActivity;
 import com.almaquinta.analytics.iu.register.RegisterActivity;
+import com.almaquinta.analytics.iu.viewspermonth.ViewsPerMonthActivity;
 import com.almaquinta.analytics.session.SessionManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -117,12 +119,16 @@ public class DashboardActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         btnRegister = findViewById(R.id.btnRegister);
-        btnAdvanced = findViewById(R.id.btnAdvanced);
+        btnAdvanced = findViewById(R.id.btnActiveNew);
         Button btnLogOut = findViewById(R.id.btnLogOut);
 
         btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));
-        btnAdvanced.setOnClickListener(v -> Toast.makeText(this, "Módulo avanzado: próximamente", Toast.LENGTH_SHORT).show());
+        btnAdvanced.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, ActiveNewUsersActivity.class)));
         btnLogOut.setOnClickListener(view -> logOut());
+        Button btnViewsPerMonth = findViewById(R.id.btnViewsPerMonth);
+        if (btnViewsPerMonth != null) {
+            btnViewsPerMonth.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, ViewsPerMonthActivity.class)));
+        }
 
         loadUserData();
         observeDashboard();

@@ -66,6 +66,69 @@
 	<string name="trend_subtitle">Comparativa de visitas y sesiones (ultimos 12 meses)</string>
 	<string name="sources_title">Fuentes principales del periodo</string>
 	<string name="no_source_data">Sin datos de fuentes para el filtro seleccionado.</string>
-	<string name="btn_advanced">Analisis Avanzado (Admin)</string>
-    <string name="todo">TODO</string>
+	<string name="btn_advanced">Activos y Nuevos (Detalle)</string>
+
+	<!-- Active & New Detail -->
+	<string name="active_new_title">Detalle de Activos y Nuevos</string>
+	<string name="active_new_back">Volver al dashboard</string>
+	<string name="active_new_filter_title">Rango personalizado</string>
+	<string name="active_new_filter_start">Desde</string>
+	<string name="active_new_filter_end">Hasta</string>
+	<string name="active_new_average_active">Promedio Activos</string>
+	<string name="active_new_average_new">Promedio Nuevos</string>
+	<string name="active_new_variation_active">Variación Activos (último mes)</string>
+	<string name="active_new_variation_new">Variación Nuevos (último mes)</string>
+	<string name="active_new_capture_rate">Captación (Nuevos/Activos)</string>
+	<string name="active_new_monthly_breakdown">Desglose mensual</string>
+	<string name="active_new_range_label">Rango: %1$s %2$d - %3$s %4$d</string>
+	<string name="active_new_month_values">Activos: %1$s | Nuevos: %2$s</string>
+	<string name="active_new_month_values_placeholder">Activos: 0 | Nuevos: 0</string>
+	<string name="active_new_not_available">N/D</string>
+	<string name="active_new_no_data">No hay datos para el rango seleccionado.</string>
+	<string name="active_new_invalid_range">El rango no es válido. Ajustado automáticamente.</string>
+	<string name="active_new_load_error">No se pudo cargar el detalle: %1$s</string>
+	<string name="active_new_insight_single">Solo hay un mes disponible en este rango: %1$s %2$d.</string>
+	<string name="active_new_insight_growth">Activos y nuevos subieron frente al mes anterior.</string>
+	<string name="active_new_insight_acquisition">Suben los nuevos, pero caen activos: revisar retención.</string>
+	<string name="active_new_insight_retention">Suben activos y bajan nuevos: buena retención del tráfico actual.</string>
+	<string name="active_new_insight_capture_high">Captación alta en el rango, monitorea si activos se sostienen.</string>
+	<string name="active_new_insight_stable">Comportamiento estable con variaciones moderadas entre meses.</string>
+
+	<!-- Months -->
+	<string name="month_january">Enero</string>
+	<string name="month_february">Febrero</string>
+	<string name="month_march">Marzo</string>
+	<string name="month_april">Abril</string>
+	<string name="month_may">Mayo</string>
+	<string name="month_june">Junio</string>
+	<string name="month_july">Julio</string>
+	<string name="month_august">Agosto</string>
+	<string name="month_september">Septiembre</string>
+	<string name="month_october">Octubre</string>
+	<string name="month_november">Noviembre</string>
+	<string name="month_december">Diciembre</string>
+	<string name="month_unknown">Mes</string>
+
+	<!-- Views Per Month Detail -->
+	<string name="views_month_title">Detalle de Vistas por Mes</string>
+	<string name="views_month_back">Volver al dashboard</string>
+	<string name="views_month_average">Promedio Vistas</string>
+	<string name="views_month_peak">Mes de Mayor Tráfico</string>
+	<string name="views_month_lowest">Mes de Menor Tráfico</string>
+	<string name="views_month_variation">Variación (Primer a Último)</string>
+	<string name="views_month_monthly_detail">Desglose mensual</string>
+	<string name="views_month_peak_format">%1$s %2$d</string>
+	<string name="views_month_lowest_format">%1$s %2$d</string>
+	<string name="views_month_detail">Vistas: %1$s</string>
+	<string name="views_month_no_data">No hay datos de vistas para el rango seleccionado.</string>
+	<string name="views_month_invalid_range">El rango no es válido. Ajustado automáticamente.</string>
+	<string name="views_month_load_error">No se pudo cargar el detalle: %1$s</string>
+	<string name="views_month_analysis">Análisis</string>
+	<string name="views_month_insight_single">Solo hay un mes disponible en este rango: %1$s %2$d.</string>
+	<string name="views_month_insight_growth">Crecimiento significativo en vistas desde el inicio del rango.</string>
+	<string name="views_month_insight_decline">Caída importante en vistas. Revisa qué cambió.</string>
+	<string name="views_month_insight_volatile">Vistas fluctuan bastante en el rango, comportamiento variable.</string>
+	<string name="views_month_insight_stable">Vistas se mantienen estables sin cambios significativos.</string>
+
+     <string name="todo">TODO</string>
 </resources>

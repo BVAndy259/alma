@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activeNewRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/login_bg"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scrim_heavy" />
+
+    <ScrollView
+        android:id="@+id/scrollActiveNew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="@string/active_new_back"
+                    android:src="@android:drawable/ic_media_previous"
+                    app:tint="@color/titules" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_title"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvSelectedRange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/dashboard_report"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/titules"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white_15"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_filter_title"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/titules"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_filter_start"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/white_70"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="6dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <Spinner
+                            android:id="@+id/spinnerStartYear"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_input_rounded"
+                            android:paddingHorizontal="12dp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerStartMonth"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_input_rounded"
+                            android:paddingHorizontal="12dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_filter_end"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/white_70"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="6dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinnerEndYear"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_input_rounded"
+                            android:paddingHorizontal="12dp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerEndMonth"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_input_rounded"
+                            android:paddingHorizontal="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardBackgroundColor="@color/white_15"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/assets"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white_70"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvTotalActiveUsers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/dashboard_placeholder_active"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/titules"
+                            android:textStyle="bold"
+                            android:textSize="26sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardBackgroundColor="@color/white_15"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/news"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white_70"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvTotalNewUsers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/dashboard_placeholder_new"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="26sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white_15"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/active_new_average_active"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white_70"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvAverageActiveUsers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_placeholder_active"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/active_new_variation_active"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white_70"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvVariationActive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/active_new_not_available"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/titules"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="16dp"
+                        android:background="@color/white_30" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/active_new_average_new"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white_70"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvAverageNewUsers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_placeholder_new"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/active_new_variation_new"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/white_70"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvVariationNew"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/active_new_not_available"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/titules"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white_15"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_capture_rate"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/white_70"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvCaptureRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dashboard_placeholder_interaction"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/titules"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvInsight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_no_data"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/white_15"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active_new_monthly_breakdown"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp" />
+
+                    <LinearLayout
+                        android:id="@+id/monthlyBreakdownContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
+

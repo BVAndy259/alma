@@ -564,10 +564,22 @@
                 app:cornerRadius="8dp"/>
 
             <Button
-                android:id="@+id/btnAdvanced"
+                android:id="@+id/btnActiveNew"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="@string/btn_advanced"
+                android:text="@string/active_new_title"
+                android:fontFamily="@font/jomolhari_regular"
+                android:backgroundTint="@color/btns"
+                android:textColor="@color/alma_button_text"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                app:cornerRadius="8dp"/>
+
+            <Button
+                android:id="@+id/btnViewsPerMonth"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="@string/views_month_title"
                 android:fontFamily="@font/jomolhari_regular"
                 android:backgroundTint="@color/btns"
                 android:textColor="@color/alma_button_text"
