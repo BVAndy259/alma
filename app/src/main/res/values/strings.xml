@@ -130,5 +130,12 @@
 	<string name="views_month_insight_volatile">Vistas fluctuan bastante en el rango, comportamiento variable.</string>
 	<string name="views_month_insight_stable">Vistas se mantienen estables sin cambios significativos.</string>
 
+	<!-- Export -->
+	<string name="export_excel">Exportar a Excel</string>
+	<string name="export_no_data">No hay datos para exportar con el filtro actual.</string>
+	<string name="export_error">No se pudo exportar: %1$s</string>
+	<string name="export_title_active_new">Exportar Activos y Nuevos</string>
+	<string name="export_title_views_month">Exportar Vistas por Mes</string>
+
      <string name="todo">TODO</string>
 </resources>

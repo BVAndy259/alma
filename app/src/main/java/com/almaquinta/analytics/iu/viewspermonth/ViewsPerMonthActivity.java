@@ -1,5 +1,6 @@
 package com.almaquinta.analytics.iu.viewspermonth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -25,6 +27,10 @@ import com.almaquinta.analytics.data.model.AnalyticsSummary;
 import com.almaquinta.analytics.data.repository.AnalyticsRepository;
 import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -47,6 +53,7 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
     private TextView tvInsight;
 
     private LinearLayout monthlyBreakdownContainer;
+    private List<AnalyticsSummary> currentFilteredSummaries = new ArrayList<>();
 
     private AnalyticsRepository repository;
     private List<AnalyticsSummary> allSummaries = new ArrayList<>();
@@ -114,6 +121,11 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
 
         ImageView ivBack = findViewById(R.id.ivBack);
         ivBack.setOnClickListener(v -> finish());
+
+        View btnExport = findViewById(R.id.btnExportViewsMonth);
+        if (btnExport != null) {
+            btnExport.setOnClickListener(v -> exportFilteredData());
+        }
 
         repository = new AnalyticsRepositoryImpl();
     }
@@ -230,6 +242,7 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
 
     private void renderCurrentRange() {
         List<AnalyticsSummary> filtered = filterByRange(allSummaries, selectedStartYear, selectedStartMonth, selectedEndYear, selectedEndMonth);
+        currentFilteredSummaries = new ArrayList<>(filtered);
         if (filtered.isEmpty()) {
             renderEmptyState();
             return;
@@ -330,7 +343,7 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
 
         for (AnalyticsSummary item : filtered) {
             peakViews = Math.max(peakViews, item.getVisits());
-            if (item.getVisits() < (totalViews / filtered.size()) * 0.7) {
+            if (item.getVisits() < (totalViews / (double) filtered.size()) * 0.7) {
                 valleyCount++;
             }
         }
@@ -410,6 +423,7 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
     }
 
     private void renderEmptyState() {
+        currentFilteredSummaries.clear();
         tvTotalViews.setText(getString(R.string.dashboard_placeholder_visits));
         tvAverageViews.setText(getString(R.string.dashboard_placeholder_visits));
         tvPeakMonth.setText(getString(R.string.active_new_not_available));
@@ -418,6 +432,61 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
         tvSelectedRange.setText(getString(R.string.dashboard_no_data_available));
         tvInsight.setText(getString(R.string.views_month_no_data));
         monthlyBreakdownContainer.removeAllViews();
+    }
+
+    private void exportFilteredData() {
+        if (currentFilteredSummaries.isEmpty()) {
+            Toast.makeText(this, getString(R.string.export_no_data), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String fileName = "views_month_" + System.currentTimeMillis() + ".csv";
+        File exportDir = new File(getCacheDir(), "exports");
+        if (!exportDir.exists()) exportDir.mkdirs();
+
+        File csvFile = new File(exportDir, fileName);
+        try {
+            writeViewsCsv(csvFile, currentFilteredSummaries);
+            shareCsvFile(csvFile, getString(R.string.export_title_views_month));
+        } catch (IOException ex) {
+            Toast.makeText(this, getString(R.string.export_error, ex.getMessage()), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void writeViewsCsv(File csvFile, List<AnalyticsSummary> rows) throws IOException {
+        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(csvFile), java.nio.charset.StandardCharsets.UTF_8)) {
+            writer.write("Year,Month,Visits,Sessions,ActiveUsers,NewUsers,EngagementRatePercent,TopSource\n");
+            for (AnalyticsSummary item : rows) {
+                writer.write(item.getYear() + ","
+                        + monthLabel(item.getMonth()) + ","
+                        + item.getVisits() + ","
+                        + item.getSessions() + ","
+                        + item.getActiveUsers() + ","
+                        + item.getNewUsers() + ","
+                        + String.format(Locale.US, "%.2f", item.getEngagementRate() * 100.0) + ","
+                        + escapeCsv(item.getTopSource())
+                        + "\n");
+            }
+            writer.flush();
+        }
+    }
+
+    private String escapeCsv(String value) {
+        if (value == null) return "";
+        String escaped = value.replace("\"", "\"\"");
+        return "\"" + escaped + "\"";
+    }
+
+    private void shareCsvFile(File csvFile, String chooserTitle) {
+        String authority = getPackageName() + ".fileprovider";
+        android.net.Uri uri = FileProvider.getUriForFile(this, authority, csvFile);
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/csv");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        startActivity(Intent.createChooser(shareIntent, chooserTitle));
     }
 
     private String formatInt(int value) {
