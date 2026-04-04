@@ -57,9 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        View rootView = findViewById(R.id.main);
-        if (rootView != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+        View contentView = findViewById(R.id.scrollContentRegister);
+        if (contentView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
                 return insets;

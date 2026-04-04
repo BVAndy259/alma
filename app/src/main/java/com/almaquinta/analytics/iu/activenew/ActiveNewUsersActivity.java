@@ -1,6 +1,8 @@
 package com.almaquinta.analytics.iu.activenew;
 
 import android.os.Bundle;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -65,9 +69,10 @@ public class ActiveNewUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_active_new_users);
+        configureSystemBars();
 
-        View rootView = findViewById(R.id.activeNewRoot);
-        ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+        View contentView = findViewById(R.id.scrollActiveNew);
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -76,6 +81,21 @@ public class ActiveNewUsersActivity extends AppCompatActivity {
         bindViews();
         setupListeners();
         observeData();
+    }
+
+    private void configureSystemBars() {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+            getWindow().setStatusBarContrastEnforced(false);
+        }
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        if (controller != null) {
+            controller.setAppearanceLightStatusBars(false);
+            controller.setAppearanceLightNavigationBars(false);
+        }
     }
 
     private void bindViews() {
