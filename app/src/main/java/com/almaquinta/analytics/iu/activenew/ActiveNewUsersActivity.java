@@ -2,8 +2,6 @@ package com.almaquinta.analytics.iu.activenew;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.graphics.Color;
-import android.os.Build;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,19 +11,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.core.graphics.Insets;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.almaquinta.analytics.R;
 import com.almaquinta.analytics.data.model.AnalyticsSummary;
 import com.almaquinta.analytics.data.repository.AnalyticsRepository;
 import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
+import com.almaquinta.analytics.iu.common.SystemBarsEdgeToEdge;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,71 +32,27 @@ import java.util.Locale;
 import java.util.Set;
 
 public class ActiveNewUsersActivity extends AppCompatActivity {
-    private Spinner spinnerStartYear;
-    private Spinner spinnerStartMonth;
-    private Spinner spinnerEndYear;
-    private Spinner spinnerEndMonth;
-
-    private TextView tvSelectedRange;
-    private TextView tvTotalActiveUsers;
-    private TextView tvTotalNewUsers;
-    private TextView tvAverageActiveUsers;
-    private TextView tvAverageNewUsers;
-    private TextView tvCaptureRate;
-    private TextView tvVariationActive;
-    private TextView tvVariationNew;
-    private TextView tvInsight;
-
+    private Spinner spinnerStartYear, spinnerStartMonth, spinnerEndYear, spinnerEndMonth;
+    private TextView tvSelectedRange, tvTotalActiveUsers, tvTotalNewUsers, tvAverageActiveUsers, tvAverageNewUsers, tvCaptureRate, tvVariationActive, tvVariationNew, tvInsight;
     private LinearLayout monthlyBreakdownContainer;
-    private List<AnalyticsSummary> currentFilteredSummaries = new ArrayList<>();
-
+    private List<AnalyticsSummary> currentFilteredSummaries = new ArrayList<>(), allSummaries = new ArrayList<>();
     private AnalyticsRepository repository;
-    private List<AnalyticsSummary> allSummaries = new ArrayList<>();
+    private final List<String> yearOptions = new ArrayList<>(), monthOptions = new ArrayList<>();
 
-    private final List<String> yearOptions = new ArrayList<>();
-    private final List<String> monthOptions = new ArrayList<>();
-
-    private int selectedStartYear;
-    private int selectedStartMonth;
-    private int selectedEndYear;
-    private int selectedEndMonth;
-
-    private boolean filtersInitialized;
-    private boolean suppressSelectionEvents;
+    private int selectedStartYear, selectedStartMonth, selectedEndYear, selectedEndMonth;
+    private boolean filtersInitialized, suppressSelectionEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_active_new_users);
-        configureSystemBars();
-
-        View contentView = findViewById(R.id.scrollActiveNew);
-        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        SystemBarsEdgeToEdge.apply(this, R.id.scrollActiveNew);
 
         bindViews();
         setupListeners();
         observeData();
     }
 
-    private void configureSystemBars() {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
-        }
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        if (controller != null) {
-            controller.setAppearanceLightStatusBars(false);
-            controller.setAppearanceLightNavigationBars(false);
-        }
-    }
 
     private void bindViews() {
         spinnerStartYear = findViewById(R.id.spinnerStartYear);
@@ -205,13 +154,13 @@ public class ActiveNewUsersActivity extends AppCompatActivity {
             monthOptions.add(monthLabel(month));
         }
 
-        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, yearOptions);
-        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner_item, yearOptions);
+        yearAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerStartYear.setAdapter(yearAdapter);
         spinnerEndYear.setAdapter(yearAdapter);
 
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, monthOptions);
-        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner_item, monthOptions);
+        monthAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerStartMonth.setAdapter(monthAdapter);
         spinnerEndMonth.setAdapter(monthAdapter);
     }
@@ -252,8 +201,7 @@ public class ActiveNewUsersActivity extends AppCompatActivity {
             return;
         }
 
-        int totalActiveUsers = 0;
-        int totalNewUsers = 0;
+        int totalActiveUsers = 0, totalNewUsers = 0;
         for (AnalyticsSummary item : filtered) {
             totalActiveUsers += item.getActiveUsers();
             totalNewUsers += item.getNewUsers();

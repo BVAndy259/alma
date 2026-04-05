@@ -2,8 +2,7 @@ package com.almaquinta.analytics.data.model;
 
 public class SourceMetric {
 	private final String source;
-	private final int activeUsers;
-	private final int newUsers;
+	private final int activeUsers, newUsers;
 	private final double engagementRate;
 
 	public SourceMetric(String source, int activeUsers, int newUsers, double engagementRate) {

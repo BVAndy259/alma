@@ -121,33 +121,42 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:baselineAligned="false"
                             android:weightSum="2">
 
                             <Button
                                 android:id="@+id/btnActiveNew"
                                 android:layout_width="0dp"
-                                android:layout_height="55dp"
-                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
-                                android:text="@string/active_new_title"
-                                android:fontFamily="@font/jomolhari_regular"
+                                android:layout_weight="1"
                                 android:backgroundTint="@color/btns"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:minHeight="55dp"
+                                android:text="@string/dashboard_btn_active_new"
                                 android:textColor="@color/alma_button_text"
                                 android:textStyle="bold"
-                                app:cornerRadius="8dp"/>
+                                style="?android:attr/buttonBarButtonStyle"
+                                app:cornerRadius="8dp" />
 
                             <Button
                                 android:id="@+id/btnViewsPerMonth"
                                 android:layout_width="0dp"
-                                android:layout_height="55dp"
-                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:text="@string/views_month_title"
-                                android:fontFamily="@font/jomolhari_regular"
+                                android:layout_weight="1"
                                 android:backgroundTint="@color/btns"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:minHeight="55dp"
+                                android:text="@string/dashboard_btn_views_per_month"
                                 android:textColor="@color/alma_button_text"
                                 android:textStyle="bold"
-                                app:cornerRadius="8dp"/>
+                                style="?android:attr/buttonBarButtonStyle"
+                                app:cornerRadius="8dp" />
                         </LinearLayout>
 
                         <Button

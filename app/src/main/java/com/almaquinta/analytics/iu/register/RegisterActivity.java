@@ -2,27 +2,30 @@ package com.almaquinta.analytics.iu.register;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.almaquinta.analytics.R;
 import com.almaquinta.analytics.data.model.AppUser;
 import com.almaquinta.analytics.data.model.UserRole;
+import com.almaquinta.analytics.iu.common.SystemBarsEdgeToEdge;
 import com.almaquinta.analytics.security.AuthorizationService;
 import com.almaquinta.analytics.iu.dashboard.DashboardActivity;
 import com.almaquinta.analytics.iu.main.MainActivity;
@@ -41,6 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+    private static final int KEYBOARD_THRESHOLD_DP = 120;
     private EditText etName, etLastName, etEmail, etPassword;
     private Spinner spRole;
     private FirebaseAuth firebaseAuth;
@@ -48,50 +52,42 @@ public class RegisterActivity extends AppCompatActivity {
     private String name = "", lastName = "", email = "", password = "";
     private UserRole selectedRole = UserRole.EMPLOYEE;
     private final AuthorizationService authorizationService = new AuthorizationService();
+    private ScrollView registerScrollView;
+    private View currentFocusedTarget;
+    private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        SystemBarsEdgeToEdge.applyWithIme(this, R.id.scrollContentRegister);
         firebaseAuth = FirebaseAuth.getInstance();
         if (!isAdminAllowed()) {
             return;
         }
 
-        View contentView = findViewById(R.id.scrollContentRegister);
-        if (contentView != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-                return insets;
-            });
-        }
 
         bindValues();
     }
 
     private void bindValues() {
+        registerScrollView = findViewById(R.id.scrollContentRegister);
         etName = findViewById(R.id.etRegisterName);
         etLastName = findViewById(R.id.etLastNameRegister);
         etEmail = findViewById(R.id.etEmailRegister);
         etPassword = findViewById(R.id.etPasswordRegister);
         spRole = findViewById(R.id.spRoleRegister);
-        TextView tvLogin = findViewById(R.id.tvDashboard);
+        ImageView btnBack = findViewById(R.id.ivBackRegister);
         Button btnRegister = findViewById(R.id.btnRegister);
         setupRoleSpinner();
+        setupFocusAutoScroll();
 
         progressDialog = new ProgressDialog(RegisterActivity.this);
         progressDialog.setTitle("Espere por favor...");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(v -> finish());
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +95,107 @@ public class RegisterActivity extends AppCompatActivity {
                 validateData();
             }
         });
+    }
+
+    private void setupFocusAutoScroll() {
+        ScrollView scrollView = registerScrollView;
+        if (scrollView == null) {
+            return;
+        }
+
+        View passwordContainer = findViewById(R.id.tilPasswordRegister);
+        bindFocusAutoScroll(scrollView, etName, etName);
+        bindFocusAutoScroll(scrollView, etLastName, etLastName);
+        bindFocusAutoScroll(scrollView, etEmail, etEmail);
+        bindFocusAutoScroll(scrollView, etPassword, passwordContainer != null ? passwordContainer : etPassword);
+        setupKeyboardVisibilityScroll(scrollView);
+    }
+
+    private void bindFocusAutoScroll(ScrollView scrollView, View focusableField, View targetToReveal) {
+        if (focusableField == null || targetToReveal == null) {
+            return;
+        }
+        focusableField.setOnFocusChangeListener((view, hasFocus) -> {
+            if (!hasFocus) {
+                if (currentFocusedTarget == targetToReveal) {
+                    currentFocusedTarget = null;
+                }
+                return;
+            }
+            currentFocusedTarget = targetToReveal;
+            scrollView.post(() -> scrollTargetIntoView(scrollView, targetToReveal));
+            // A short delayed pass handles devices where IME insets arrive slightly later.
+            scrollView.postDelayed(() -> scrollTargetIntoView(scrollView, targetToReveal), 180L);
+            scrollView.postDelayed(() -> ensureTargetVisibleAboveKeyboard(scrollView, targetToReveal), 240L);
+        });
+    }
+
+    private void setupKeyboardVisibilityScroll(ScrollView scrollView) {
+        if (keyboardLayoutListener != null) {
+            return;
+        }
+
+        keyboardLayoutListener = () -> {
+            if (currentFocusedTarget == null || !currentFocusedTarget.isFocused()) {
+                return;
+            }
+            ensureTargetVisibleAboveKeyboard(scrollView, currentFocusedTarget);
+        };
+        scrollView.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
+    }
+
+    private void scrollTargetIntoView(ScrollView scrollView, View target) {
+        View content = scrollView.getChildAt(0);
+        if (!(content instanceof ViewGroup) || target == null) {
+            return;
+        }
+        ViewGroup contentGroup = (ViewGroup) content;
+
+        Rect rect = new Rect();
+        target.getDrawingRect(rect);
+        contentGroup.offsetDescendantRectToMyCoords(target, rect);
+        rect.bottom += dpToPx(24);
+        scrollView.requestChildRectangleOnScreen(contentGroup, rect, true);
+    }
+
+    private void ensureTargetVisibleAboveKeyboard(ScrollView scrollView, View target) {
+        if (target == null) {
+            return;
+        }
+
+        Rect visibleFrame = new Rect();
+        scrollView.getWindowVisibleDisplayFrame(visibleFrame);
+        int keyboardHeight = scrollView.getRootView().getHeight() - visibleFrame.bottom;
+        if (keyboardHeight < dpToPx(KEYBOARD_THRESHOLD_DP)) {
+            return;
+        }
+
+        int[] location = new int[2];
+        target.getLocationOnScreen(location);
+        int targetBottom = location[1] + target.getHeight() + dpToPx(16);
+        int keyboardTop = visibleFrame.bottom;
+        if (targetBottom > keyboardTop) {
+            int delta = targetBottom - keyboardTop;
+            scrollView.smoothScrollBy(0, delta);
+        }
+    }
+
+    private int dpToPx(int dp) {
+        return Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                getResources().getDisplayMetrics()
+        ));
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (registerScrollView != null
+                && keyboardLayoutListener != null
+                && registerScrollView.getViewTreeObserver().isAlive()) {
+            registerScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(keyboardLayoutListener);
+        }
+        super.onDestroy();
     }
 
     private void validateData() {

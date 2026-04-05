@@ -120,7 +120,9 @@
                             android:layout_weight="1"
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/bg_input_rounded"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="12dp"
+                            android:textColor="@color/alma_button_text"
+                            android:popupBackground="@color/white" />
 
                         <Spinner
                             android:id="@+id/spinnerStartMonth"
@@ -129,7 +131,9 @@
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/bg_input_rounded"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="12dp"
+                            android:textColor="@color/alma_button_text"
+                            android:popupBackground="@color/white" />
                     </LinearLayout>
 
                     <TextView
@@ -153,7 +157,9 @@
                             android:layout_weight="1"
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/bg_input_rounded"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="12dp"
+                            android:textColor="@color/alma_button_text"
+                            android:popupBackground="@color/white" />
 
                         <Spinner
                             android:id="@+id/spinnerEndMonth"
@@ -162,7 +168,9 @@
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/bg_input_rounded"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="12dp"
+                            android:textColor="@color/alma_button_text"
+                            android:popupBackground="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

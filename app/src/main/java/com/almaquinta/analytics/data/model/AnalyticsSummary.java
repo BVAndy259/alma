@@ -1,12 +1,7 @@
 package com.almaquinta.analytics.data.model;
 
 public class AnalyticsSummary {
-    private final int year;
-    private final int month;
-    private final int visits;
-    private final int sessions;
-    private final int activeUsers;
-    private final int newUsers;
+    private final int year, month, visits, sessions, activeUsers, newUsers;
     private final double engagementRate;
     private final String topSource;
 

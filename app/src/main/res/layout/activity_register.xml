@@ -31,25 +31,49 @@
             android:gravity="center_horizontal"
             android:padding="32dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register_title"
-                android:fontFamily="@font/jomolhari_regular"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="36dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/subtitle_register"
-                android:fontFamily="@font/jomolhari_regular"
-                android:textSize="14sp"
-                android:textColor="@color/titules"
-                android:layout_marginBottom="48dp" />
+                <ImageView
+                    android:id="@+id/ivBackRegister"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="@string/btn_back_symbol"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_stat_card"
+                    android:src="@android:drawable/ic_media_previous"
+                    app:tint="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_title"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/subtitle_register"
+                        android:fontFamily="@font/jomolhari_regular"
+                        android:textSize="14sp"
+                        android:textColor="@color/titules" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,7 +94,8 @@
                 android:textColor="@color/text_primary"
                 android:background="@drawable/bg_input_rounded"
                 android:padding="12dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:autofillHints="name"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -91,7 +116,8 @@
                 android:textColor="@color/text_primary"
                 android:background="@drawable/bg_input_rounded"
                 android:padding="12dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:autofillHints="name"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -112,7 +138,8 @@
                 android:background="@drawable/bg_input_rounded"
                 android:padding="12dp"
                 android:inputType="textEmailAddress"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:autofillHints="emailAddress"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -123,6 +150,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPasswordRegister"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginBottom="24dp"
@@ -174,14 +202,6 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="24dp"/>
 
-            <TextView
-                android:id="@+id/tvDashboard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_dashboard_register"
-                android:fontFamily="@font/jomolhari_regular"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="24dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

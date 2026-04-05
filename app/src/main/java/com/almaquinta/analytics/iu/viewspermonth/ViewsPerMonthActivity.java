@@ -2,8 +2,6 @@ package com.almaquinta.analytics.iu.viewspermonth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.graphics.Color;
-import android.os.Build;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,19 +11,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.core.graphics.Insets;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.almaquinta.analytics.R;
 import com.almaquinta.analytics.data.model.AnalyticsSummary;
 import com.almaquinta.analytics.data.repository.AnalyticsRepository;
 import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
+import com.almaquinta.analytics.iu.common.SystemBarsEdgeToEdge;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,69 +32,26 @@ import java.util.Locale;
 import java.util.Set;
 
 public class ViewsPerMonthActivity extends AppCompatActivity {
-    private Spinner spinnerStartYear;
-    private Spinner spinnerStartMonth;
-    private Spinner spinnerEndYear;
-    private Spinner spinnerEndMonth;
-
-    private TextView tvSelectedRange;
-    private TextView tvTotalViews;
-    private TextView tvAverageViews;
-    private TextView tvPeakMonth;
-    private TextView tvLowestMonth;
-    private TextView tvVariation;
-    private TextView tvInsight;
-
+    private Spinner spinnerStartYear, spinnerStartMonth, spinnerEndYear, spinnerEndMonth;
+    private TextView tvSelectedRange, tvTotalViews, tvAverageViews, tvPeakMonth, tvLowestMonth, tvVariation, tvInsight;;
     private LinearLayout monthlyBreakdownContainer;
-    private List<AnalyticsSummary> currentFilteredSummaries = new ArrayList<>();
-
+    private List<AnalyticsSummary> currentFilteredSummaries = new ArrayList<>(), allSummaries = new ArrayList<>();
     private AnalyticsRepository repository;
-    private List<AnalyticsSummary> allSummaries = new ArrayList<>();
-
-    private final List<String> yearOptions = new ArrayList<>();
-    private final List<String> monthOptions = new ArrayList<>();
-
-    private int selectedStartYear;
-    private int selectedStartMonth;
-    private int selectedEndYear;
-    private int selectedEndMonth;
-
-    private boolean filtersInitialized;
-    private boolean suppressSelectionEvents;
+    private final List<String> yearOptions = new ArrayList<>(), monthOptions = new ArrayList<>();
+    private int selectedStartYear, selectedStartMonth, selectedEndYear, selectedEndMonth;
+    private boolean filtersInitialized, suppressSelectionEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_views_per_month);
-        configureSystemBars();
-
-        View contentView = findViewById(R.id.scrollViewsPerMonth);
-        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        SystemBarsEdgeToEdge.apply(this, R.id.scrollViewsPerMonth);
 
         bindViews();
         setupListeners();
         observeData();
     }
 
-    private void configureSystemBars() {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
-        }
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        if (controller != null) {
-            controller.setAppearanceLightStatusBars(false);
-            controller.setAppearanceLightNavigationBars(false);
-        }
-    }
 
     private void bindViews() {
         spinnerStartYear = findViewById(R.id.spinnerStartYear);
@@ -201,13 +151,13 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
             monthOptions.add(monthLabel(month));
         }
 
-        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, yearOptions);
-        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner_item, yearOptions);
+        yearAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerStartYear.setAdapter(yearAdapter);
         spinnerEndYear.setAdapter(yearAdapter);
 
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, monthOptions);
-        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner_item, monthOptions);
+        monthAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerStartMonth.setAdapter(monthAdapter);
         spinnerEndMonth.setAdapter(monthAdapter);
     }
@@ -248,9 +198,7 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
             return;
         }
 
-        int totalViews = 0;
-        int maxViews = 0;
-        int minViews = Integer.MAX_VALUE;
+        int totalViews = 0, maxViews = 0, minViews = Integer.MAX_VALUE;
         AnalyticsSummary peakSummary = null;
         AnalyticsSummary lowestSummary = null;
 
@@ -338,8 +286,7 @@ public class ViewsPerMonthActivity extends AppCompatActivity {
         AnalyticsSummary last = filtered.get(0);
 
         double variation = calculateVariation(first.getVisits(), last.getVisits());
-        int peakViews = 0;
-        int valleyCount = 0;
+        int peakViews = 0, valleyCount = 0;
 
         for (AnalyticsSummary item : filtered) {
             peakViews = Math.max(peakViews, item.getVisits());

@@ -21,7 +21,8 @@
 		</provider>
 		<activity
 				android:name=".iu.profile.ProfileActivity"
-				android:exported="false"/>
+				android:exported="false"
+				android:windowSoftInputMode="adjustResize"/>
 		<activity
 				android:name=".iu.about.AboutAppActivity"
 				android:exported="false"/>
@@ -39,7 +40,8 @@
 				android:exported="false"/>
 		<activity
 				android:name=".iu.register.RegisterActivity"
-				android:exported="false"/>
+				android:exported="false"
+				android:windowSoftInputMode="adjustResize"/>
 		<activity
 				android:name=".iu.main.SplashActivity"
 				android:exported="true">
@@ -51,13 +53,7 @@
 		</activity>
 		<activity
 				android:name=".iu.main.MainActivity"
-				android:exported="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-		</activity>
+				android:exported="false" />
 	</application>
 
 </manifest>

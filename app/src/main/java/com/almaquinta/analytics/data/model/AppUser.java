@@ -1,12 +1,9 @@
 package com.almaquinta.analytics.data.model;
 
 public class AppUser {
-    private final String id;
-    private final String name;
-    private final String lastName;
-    private final String email;
-    private UserRole role;
-    private boolean active;
+    private final String id, name, lastName, email;
+    private final UserRole role;
+    private final boolean active;
 
     public AppUser(String lastName, String id, String name, String email, UserRole role, boolean active) {
         this.lastName = lastName;
@@ -37,15 +34,7 @@ public class AppUser {
         return role;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     public boolean isActive() {
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

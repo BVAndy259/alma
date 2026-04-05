@@ -67,6 +67,8 @@
 	<string name="sources_title">Fuentes principales del periodo</string>
 	<string name="no_source_data">Sin datos de fuentes para el filtro seleccionado.</string>
 	<string name="btn_advanced">Activos y Nuevos (Detalle)</string>
+	<string name="dashboard_btn_active_new">Activos y Nuevos</string>
+	<string name="dashboard_btn_views_per_month">Vistas por Mes</string>
 
 	<!-- Active & New Detail -->
 	<string name="active_new_title">Detalle de Activos y Nuevos</string>
@@ -189,7 +191,13 @@
 		<string name="about_app_name_label">Aplicación</string>
 		<string name="about_app_summary_text">Alma Quinta Growth Hub centraliza métricas de Google Analytics y datos operativos para ayudar a supervisar crecimiento, tráfico y comportamiento de usuarios.</string>
 		<string name="about_developer_label">Desarrollador</string>
-		<string name="about_developer_summary_text">Andy Barreda impulsa soluciones enfocadas en crecimiento digital, automatización y análisis de datos con una experiencia visual limpia y práctica.</string>
+		<string name="about_developer_profile_label">Perfil técnico</string>
+		<string name="about_developer_summary_text">Ingeniero de software con enfoque en IA y backend.
+
+Especialidades:
+1) Backend y APIs: Java, Spring Boot, JWT y WebSockets.
+2) IA y analítica: Python, TensorFlow, Keras y scikit-learn.
+3) Datos e infraestructura: PostgreSQL, Linux, Git y automatización con n8n.</string>
 		<string name="about_version_label">Versión</string>
 		<string name="todo">TODO</string>
 </resources>

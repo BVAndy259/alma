@@ -4,31 +4,31 @@ import android.app.ProgressDialog;
 import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.almaquinta.analytics.R;
 import com.almaquinta.analytics.data.model.AppUser;
+import com.almaquinta.analytics.iu.common.SystemBarsEdgeToEdge;
 import com.almaquinta.analytics.session.SessionManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,36 +46,24 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final int IMAGE_MAX_BYTES = 70 * 1024;
-    private static final int IMAGE_MAX_DIMENSION = 256;
-
-    private EditText etName;
-    private EditText etLastName;
-    private EditText etPhone;
-    private EditText etProfession;
-    private EditText etBirthDate;
-    private EditText etInstagram;
+    private static final int IMAGE_MAX_BYTES = 70 * 1024, IMAGE_MAX_DIMENSION = 256, KEYBOARD_THRESHOLD_DP = 120;
+    private EditText etName, etLastName, etPhone, etProfession, etBirthDate, etInstagram;
     private ImageView ivProfilePreview;
-
     private ProgressDialog progressDialog;
     private DatabaseReference userRef;
     private String selectedImageBase64 = "";
-
     private ActivityResultLauncher<String> galleryLauncher;
     private ActivityResultLauncher<Void> cameraLauncher;
+    private ScrollView scrollProfile;
+    private View currentFocusedField, currentFocusedTarget;
+    private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-        configureSystemBars();
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.scrollProfile), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        SystemBarsEdgeToEdge.applyWithIme(this, R.id.scrollProfile);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
@@ -105,19 +93,6 @@ public class ProfileActivity extends AppCompatActivity {
         loadProfileData();
     }
 
-    private void configureSystemBars() {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
-        }
-        WindowInsetsControllerCompat controller =
-                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        controller.setAppearanceLightStatusBars(false);
-        controller.setAppearanceLightNavigationBars(false);
-    }
 
     private void bindViews() {
         ImageView btnBack = findViewById(R.id.btnBackProfile);
@@ -131,11 +106,108 @@ public class ProfileActivity extends AppCompatActivity {
         etBirthDate = findViewById(R.id.etBirthDate);
         etInstagram = findViewById(R.id.etInstagram);
         ivProfilePreview = findViewById(R.id.ivProfilePreview);
+        scrollProfile = findViewById(R.id.scrollProfile);
 
         btnBack.setOnClickListener(v -> finish());
         btnPickPhoto.setOnClickListener(v -> showImageSourceChooser());
         btnSave.setOnClickListener(v -> saveProfile());
         etBirthDate.setOnClickListener(v -> showBirthDatePicker());
+        setupFocusAutoScroll();
+    }
+
+    private void setupFocusAutoScroll() {
+        if (scrollProfile == null) {
+            return;
+        }
+
+        View phoneContainer = findViewById(R.id.containerPhoneProfile);
+        bindFocusAutoScroll(etName, etName);
+        bindFocusAutoScroll(etLastName, etLastName);
+        bindFocusAutoScroll(etPhone, phoneContainer != null ? phoneContainer : etPhone);
+        bindFocusAutoScroll(etProfession, etProfession);
+        bindFocusAutoScroll(etInstagram, etInstagram);
+        setupKeyboardVisibilityScroll();
+    }
+
+    private void bindFocusAutoScroll(View focusableField, View targetToReveal) {
+        if (focusableField == null || targetToReveal == null || scrollProfile == null) {
+            return;
+        }
+        focusableField.setOnFocusChangeListener((view, hasFocus) -> {
+            if (!hasFocus) {
+                if (currentFocusedField == focusableField) {
+                    currentFocusedField = null;
+                    currentFocusedTarget = null;
+                }
+                return;
+            }
+
+            currentFocusedField = focusableField;
+            currentFocusedTarget = targetToReveal;
+            scrollProfile.post(() -> scrollTargetIntoView(targetToReveal));
+            scrollProfile.postDelayed(() -> scrollTargetIntoView(targetToReveal), 180L);
+            scrollProfile.postDelayed(() -> ensureTargetVisibleAboveKeyboard(targetToReveal), 240L);
+        });
+    }
+
+    private void setupKeyboardVisibilityScroll() {
+        if (scrollProfile == null || keyboardLayoutListener != null) {
+            return;
+        }
+
+        keyboardLayoutListener = () -> {
+            if (currentFocusedTarget == null || getCurrentFocus() == null) {
+                return;
+            }
+            ensureTargetVisibleAboveKeyboard(currentFocusedTarget);
+        };
+        scrollProfile.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
+    }
+
+    private void scrollTargetIntoView(View target) {
+        if (scrollProfile == null) {
+            return;
+        }
+        View content = scrollProfile.getChildAt(0);
+        if (!(content instanceof ViewGroup) || target == null) {
+            return;
+        }
+        ViewGroup contentGroup = (ViewGroup) content;
+
+        Rect rect = new Rect();
+        target.getDrawingRect(rect);
+        contentGroup.offsetDescendantRectToMyCoords(target, rect);
+        rect.bottom += dpToPx(24);
+        scrollProfile.requestChildRectangleOnScreen(contentGroup, rect, true);
+    }
+
+    private void ensureTargetVisibleAboveKeyboard(View target) {
+        if (scrollProfile == null || target == null) {
+            return;
+        }
+
+        Rect visibleFrame = new Rect();
+        scrollProfile.getWindowVisibleDisplayFrame(visibleFrame);
+        int keyboardHeight = scrollProfile.getRootView().getHeight() - visibleFrame.bottom;
+        if (keyboardHeight < dpToPx(KEYBOARD_THRESHOLD_DP)) {
+            return;
+        }
+
+        int[] location = new int[2];
+        target.getLocationOnScreen(location);
+        int targetBottom = location[1] + target.getHeight() + dpToPx(16);
+        int keyboardTop = visibleFrame.bottom;
+        if (targetBottom > keyboardTop) {
+            scrollProfile.smoothScrollBy(0, targetBottom - keyboardTop);
+        }
+    }
+
+    private int dpToPx(int dp) {
+        return Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                getResources().getDisplayMetrics()
+        ));
     }
 
     private void loadProfileData() {
@@ -281,8 +353,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private Bitmap scaleBitmap(Bitmap source) {
-        int width = source.getWidth();
-        int height = source.getHeight();
+        int width = source.getWidth(), height = source.getHeight();
         if (width <= IMAGE_MAX_DIMENSION && height <= IMAGE_MAX_DIMENSION) {
             return source;
         }
@@ -325,6 +396,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String getSafeString(Object value) {
         return value == null ? "" : String.valueOf(value);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (scrollProfile != null
+                && keyboardLayoutListener != null
+                && scrollProfile.getViewTreeObserver().isAlive()) {
+            scrollProfile.getViewTreeObserver().removeOnGlobalLayoutListener(keyboardLayoutListener);
+        }
+        super.onDestroy();
     }
 }
 

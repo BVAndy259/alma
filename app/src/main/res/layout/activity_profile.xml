@@ -20,7 +20,8 @@
         android:id="@+id/scrollProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,6 +108,7 @@
                 android:autofillHints="familyName" />
 
             <LinearLayout
+                android:id="@+id/containerPhoneProfile"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginBottom="16dp"
@@ -179,12 +181,12 @@
                     android:textColorHint="@color/text_primary"
                     android:fontFamily="@font/jomolhari_regular"
                     android:padding="0dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:clickable="true"
+                    android:focusable="true"
                     android:inputType="date"
                     android:cursorVisible="false"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:autofillHints="birthDateDay" />
             </LinearLayout>
 
             <EditText

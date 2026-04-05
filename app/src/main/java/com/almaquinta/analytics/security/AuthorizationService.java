@@ -1,6 +1,5 @@
 package com.almaquinta.analytics.security;
 
-import com.almaquinta.analytics.data.model.UserRole;
 import com.almaquinta.analytics.session.SessionManager;
 
 public class AuthorizationService {

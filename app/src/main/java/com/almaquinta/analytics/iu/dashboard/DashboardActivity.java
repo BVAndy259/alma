@@ -5,9 +5,7 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Build;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,11 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -37,6 +32,7 @@ import com.almaquinta.analytics.data.model.SourceMetric;
 import com.almaquinta.analytics.data.repository.AnalyticsRepository;
 import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
 import com.almaquinta.analytics.iu.activenew.ActiveNewUsersActivity;
+import com.almaquinta.analytics.iu.common.SystemBarsEdgeToEdge;
 import com.almaquinta.analytics.iu.main.MainActivity;
 import com.almaquinta.analytics.iu.profile.ProfileActivity;
 import com.almaquinta.analytics.iu.register.RegisterActivity;
@@ -69,9 +65,7 @@ import com.almaquinta.analytics.data.model.UserRole;
 public class DashboardActivity extends AppCompatActivity {
     private static final int DASHBOARD_MONTH_LIMIT = 3;
 
-    private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue;
-    private TextView userDash, userRoleDash;
-    private TextView tvDashboardReport, tvSelectedPeriod, tvSourcesList;
+    private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue, userDash, userRoleDash, tvDashboardReport, tvSelectedPeriod, tvSourcesList;
     private Spinner spinnerYear, spinnerMonth;
     private LinearLayout trafficBarsContainer;
     private FirebaseAuth firebaseAuth;
@@ -80,51 +74,21 @@ public class DashboardActivity extends AppCompatActivity {
     private final AuthorizationService authorizationService = new AuthorizationService();
     private Button btnRegister, btnAdvanced, btnManageUsers, btnProfile, btnAppInfo;
     private ImageView ivDrawerAvatar;
-
     private DrawerLayout drawerLayout;
     private List<AnalyticsSummary> allSummaries = new ArrayList<>();
     private Map<String, List<SourceMetric>> sourcesByPeriod = new HashMap<>();
-
-    private List<String> yearOptions = new ArrayList<>();
-    private List<String> monthOptions = new ArrayList<>();
-    private int selectedYear = 0;
-    private int selectedMonth = 0;
+    private List<String> yearOptions = new ArrayList<>(), monthOptions = new ArrayList<>();
+    private int selectedYear = 0, selectedMonth = 0;
     private boolean initializedFilters = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
-        configureSystemBars();
+        SystemBarsEdgeToEdge.apply(this, R.id.scrollContent);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        View rootView = findViewById(R.id.scrollContent);
-        if (rootView != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-                return insets;
-            });
-
-            bindValues();
-        }
-    }
-
-    private void configureSystemBars() {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            getWindow().setNavigationBarDividerColor(Color.TRANSPARENT);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
-        }
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        controller.setAppearanceLightStatusBars(false);
-        controller.setAppearanceLightNavigationBars(false);
+        bindValues();
     }
 
     private void bindValues() {
@@ -473,12 +437,8 @@ public class DashboardActivity extends AppCompatActivity {
     private AnalyticsSummary aggregateSummaries(List<AnalyticsSummary> data) {
         if (data.isEmpty()) return new AnalyticsSummary(selectedYear, selectedMonth, 0, 0, 0, 0, 0d, "Sin datos");
 
-        int visits = 0;
-        int sessions = 0;
-        int active = 0;
-        int newer = 0;
+        int visits = 0, sessions = 0, active = 0, newer = 0, rateBase = 0;
         double rateWeight = 0d;
-        int rateBase = 0;
 
         Map<String, Integer> sourceActive = new HashMap<>();
         for (AnalyticsSummary item : data) {
@@ -521,8 +481,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (filtered.isEmpty()) return;
 
         int limit = Math.min(12, filtered.size());
-        int maxVisits = 1;
-        int maxSessions = 1;
+        int maxVisits = 1, maxSessions = 1;
 
         for (int i = 0; i < limit; i++) {
             AnalyticsSummary item = filtered.get(i);
@@ -702,9 +661,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private static class MutableSource {
-        int active;
-        int newUsers;
+        int active, newUsers, rateBase;
         double rateWeight;
-        int rateBase;
     }
 }

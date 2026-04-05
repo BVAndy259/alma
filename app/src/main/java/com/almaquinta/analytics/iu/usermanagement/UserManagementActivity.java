@@ -1,8 +1,5 @@
 package com.almaquinta.analytics.iu.usermanagement;
 
-import android.app.AlertDialog;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +12,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.content.ContextCompat;
 
 import com.almaquinta.analytics.R;
 import com.almaquinta.analytics.data.model.AppUser;
 import com.almaquinta.analytics.data.model.UserRole;
+import com.almaquinta.analytics.iu.common.SystemBarsEdgeToEdge;
 import com.almaquinta.analytics.security.AuthorizationService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,14 +38,8 @@ import java.util.Map;
 public class UserManagementActivity extends AppCompatActivity {
     private final AuthorizationService authorizationService = new AuthorizationService();
     private final List<AppUser> users = new ArrayList<>();
-
     private UserAdapter adapter;
-    private TextView tvTotalUsers;
-    private TextView tvActiveUsers;
-    private TextView tvInactiveUsers;
-    private TextView tvAdmins;
-    private TextView tvCoordinators;
-    private TextView tvEmployees;
+    private TextView tvTotalUsers, tvActiveUsers, tvInactiveUsers, tvAdmins, tvCoordinators, tvEmployees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,33 +48,13 @@ public class UserManagementActivity extends AppCompatActivity {
             return;
         }
 
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user_management);
-        configureSystemBars();
-
-        View contentView = findViewById(R.id.scrollUserManagement);
-        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        SystemBarsEdgeToEdge.apply(this, R.id.scrollUserManagement);
 
         bindViews();
         observeUsers();
     }
 
-    private void configureSystemBars() {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
-        }
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        controller.setAppearanceLightStatusBars(false);
-        controller.setAppearanceLightNavigationBars(false);
-    }
 
     private void bindViews() {
         tvTotalUsers = findViewById(R.id.tvTotalUsers);
@@ -149,11 +117,7 @@ public class UserManagementActivity extends AppCompatActivity {
     }
 
     private void renderSummary() {
-        int active = 0;
-        int inactive = 0;
-        int admins = 0;
-        int coordinators = 0;
-        int employees = 0;
+        int active = 0, inactive = 0, admins = 0, coordinators = 0, employees = 0;
 
         for (AppUser user : users) {
             if (user.isActive()) active++;
@@ -191,17 +155,25 @@ public class UserManagementActivity extends AppCompatActivity {
         spRole.setAdapter(roleAdapter);
         spRole.setSelection(roleIndex(user.getRole()));
 
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.user_mgmt_dialog_title)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
-                .setNegativeButton(R.string.user_mgmt_dialog_cancel, (dialog, which) -> dialog.dismiss())
+                .setNegativeButton(R.string.user_mgmt_dialog_cancel, (dialogInterface, which) -> dialogInterface.dismiss())
                 .setPositiveButton(R.string.user_mgmt_dialog_save, null)
-                .show()
-                .setOnShowListener(dialogInterface -> {
-                    AlertDialog dialog = (AlertDialog) dialogInterface;
-                    Button saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    saveButton.setOnClickListener(v -> saveUserChanges(user, spRole, swActive, dialog));
-                });
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            Button cancelButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            Button saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            int accentColor = ContextCompat.getColor(this, R.color.titules);
+            cancelButton.setTextColor(accentColor);
+            saveButton.setTextColor(accentColor);
+            saveButton.setOnClickListener(v -> saveUserChanges(user, spRole, swActive, dialog));
+        });
+
+        dialog.show();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
     }
 
     private void saveUserChanges(AppUser user, Spinner spRole, SwitchCompat swActive, AlertDialog dialog) {

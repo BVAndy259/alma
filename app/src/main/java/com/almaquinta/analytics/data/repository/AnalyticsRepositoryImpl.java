@@ -137,8 +137,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 
     private int[] split(String period) {
         String[] data = period.split("-");
-        int year = 0;
-        int month = 0;
+        int year = 0, month = 0;
         if (data.length >= 2) {
             year = asInt(data[0], 0);
             month = asInt(data[1], 0);
@@ -204,19 +203,13 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
     }
 
     private static class SourceAggregate {
-        int active;
-        int newUsers;
+        int active, newUsers, rateBase;
         double rateWeight;
-        int rateBase;
     }
 
     private static class DashboardAccumulator {
-        final Map<String, Integer> visitsByPeriod = new HashMap<>();
-        final Map<String, Integer> sessionsByPeriod = new HashMap<>();
-        final Map<String, Integer> activeByPeriod = new HashMap<>();
-        final Map<String, Integer> newByPeriod = new HashMap<>();
+        final Map<String, Integer> visitsByPeriod = new HashMap<>(), sessionsByPeriod = new HashMap<>(), activeByPeriod = new HashMap<>(), newByPeriod = new HashMap<>(), rateBaseByPeriod = new HashMap<>();
         final Map<String, Double> rateWeightByPeriod = new HashMap<>();
-        final Map<String, Integer> rateBaseByPeriod = new HashMap<>();
         final Map<String, Map<String, SourceAggregate>> sourcesByPeriod = new HashMap<>();
 
         List<String> periods() {
@@ -228,8 +221,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 
             List<String> periods = new ArrayList<>(all.keySet());
             periods.sort((p1, p2) -> {
-                int[] ym1 = splitPeriod(p1);
-                int[] ym2 = splitPeriod(p2);
+                int[] ym1 = splitPeriod(p1), ym2 = splitPeriod(p2);
                 if (ym2[0] != ym1[0]) return ym2[0] - ym1[0];
                 return ym2[1] - ym1[1];
             });
@@ -238,8 +230,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 
         private int[] splitPeriod(String period) {
             String[] data = period.split("-");
-            int year = 0;
-            int month = 0;
+            int year = 0, month = 0;
             if (data.length >= 2) {
                 try {
                     year = Integer.parseInt(data[0]);
