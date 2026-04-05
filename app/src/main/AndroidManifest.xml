@@ -20,6 +20,12 @@
 					android:resource="@xml/file_paths" />
 		</provider>
 		<activity
+				android:name=".iu.profile.ProfileActivity"
+				android:exported="false"/>
+		<activity
+				android:name=".iu.about.AboutAppActivity"
+				android:exported="false"/>
+		<activity
 				android:name=".iu.usermanagement.UserManagementActivity"
 				android:exported="false"/>
 		<activity

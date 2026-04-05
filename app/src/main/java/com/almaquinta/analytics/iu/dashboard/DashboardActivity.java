@@ -1,9 +1,14 @@
 package com.almaquinta.analytics.iu.dashboard;
 
 import android.content.Intent;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Build;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +38,7 @@ import com.almaquinta.analytics.data.repository.AnalyticsRepository;
 import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
 import com.almaquinta.analytics.iu.activenew.ActiveNewUsersActivity;
 import com.almaquinta.analytics.iu.main.MainActivity;
+import com.almaquinta.analytics.iu.profile.ProfileActivity;
 import com.almaquinta.analytics.iu.register.RegisterActivity;
 import com.almaquinta.analytics.iu.usermanagement.UserManagementActivity;
 import com.almaquinta.analytics.iu.viewspermonth.ViewsPerMonthActivity;
@@ -72,7 +78,8 @@ public class DashboardActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private AnalyticsRepository repository;
     private final AuthorizationService authorizationService = new AuthorizationService();
-    private Button btnRegister, btnAdvanced, btnManageUsers;
+    private Button btnRegister, btnAdvanced, btnManageUsers, btnProfile, btnAppInfo;
+    private ImageView ivDrawerAvatar;
 
     private DrawerLayout drawerLayout;
     private List<AnalyticsSummary> allSummaries = new ArrayList<>();
@@ -136,6 +143,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         userDash = findViewById(R.id.userDash);
         userRoleDash = findViewById(R.id.userRoleDash);
+        ivDrawerAvatar = findViewById(R.id.ivDrawerAvatar);
 
         repository = new AnalyticsRepositoryImpl();
 
@@ -145,6 +153,8 @@ public class DashboardActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnAdvanced = findViewById(R.id.btnActiveNew);
         btnManageUsers = findViewById(R.id.btnManageUsers);
+        btnProfile = findViewById(R.id.btnProfile);
+        btnAppInfo = findViewById(R.id.btnAppInfo);
         Button btnLogOut = findViewById(R.id.btnLogOut);
 
         btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));
@@ -158,6 +168,12 @@ public class DashboardActivity extends AppCompatActivity {
                     Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        if (btnProfile != null) {
+            btnProfile.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, ProfileActivity.class)));
+        }
+        if (btnAppInfo != null) {
+            btnAppInfo.setOnClickListener(v -> showAboutDialog());
         }
         btnLogOut.setOnClickListener(view -> logOut());
         Button btnViewsPerMonth = findViewById(R.id.btnViewsPerMonth);
@@ -196,6 +212,22 @@ public class DashboardActivity extends AppCompatActivity {
         finish();
     }
 
+    private void showAboutDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_about_app, null, false);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        ImageView btnBack = dialogView.findViewById(R.id.btnBackAbout);
+        btnBack.setOnClickListener(v -> dialog.dismiss());
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        dialog.show();
+    }
+
     private void observeDashboard() {
         repository.observeDashboardData(new AnalyticsRepository.DashboardDataListener() {
             @Override
@@ -222,6 +254,7 @@ public class DashboardActivity extends AppCompatActivity {
         AppUser currentUser = SessionManager.getInstance().getCurrentUser();
         if (currentUser != null) {
             setupUserUI(currentUser);
+            loadLatestProfileFromFirebase();
         } else if (firebaseUser != null) {
             DatabaseReference userRef = FirebaseDatabase.getInstance()
                     .getReference("Usuarios")
@@ -242,15 +275,77 @@ public class DashboardActivity extends AppCompatActivity {
                     UserRole role = UserRole.EMPLOYEE;
                     if ("ADMIN".equalsIgnoreCase(roleRaw)) role = UserRole.ADMIN;
                     else if ("COORDINATOR".equalsIgnoreCase(roleRaw)) role = UserRole.COORDINATOR;
+                    String profileImageBase64 = getString(snapshot, "profileImageBase64", "");
 
                     AppUser appUser = new AppUser(lastName, firebaseUser.getUid(), name, email, role, active);
                     SessionManager.getInstance().setCurrentUser(appUser);
                     setupUserUI(appUser);
+                    setDrawerAvatar(profileImageBase64);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
+        }
+    }
+
+    private void loadLatestProfileFromFirebase() {
+        if (firebaseUser == null) {
+            return;
+        }
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance()
+                .getReference("Usuarios")
+                .child(firebaseUser.getUid());
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = getString(snapshot, "nombre", "");
+                String lastName = getString(snapshot, "apellido", "");
+                String email = getString(snapshot, "correo", firebaseUser.getEmail());
+                String roleRaw = getString(snapshot, "role", "");
+                Object activeObj = snapshot.child("active").getValue();
+                boolean active = true;
+                if (activeObj instanceof Boolean) active = (Boolean) activeObj;
+                else if (activeObj instanceof String) active = Boolean.parseBoolean((String) activeObj);
+
+                UserRole role = UserRole.EMPLOYEE;
+                if ("ADMIN".equalsIgnoreCase(roleRaw)) role = UserRole.ADMIN;
+                else if ("COORDINATOR".equalsIgnoreCase(roleRaw)) role = UserRole.COORDINATOR;
+
+                AppUser appUser = new AppUser(lastName, firebaseUser.getUid(), name, email, role, active);
+                SessionManager.getInstance().setCurrentUser(appUser);
+                setupUserUI(appUser);
+
+                String profileImageBase64 = getString(snapshot, "profileImageBase64", "");
+                setDrawerAvatar(profileImageBase64);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    private void setDrawerAvatar(String base64) {
+        if (ivDrawerAvatar == null) {
+            return;
+        }
+        if (base64 == null || base64.trim().isEmpty()) {
+            ivDrawerAvatar.setImageResource(R.drawable.company_lg);
+            return;
+        }
+
+        try {
+            byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            if (bitmap != null) {
+                ivDrawerAvatar.setImageBitmap(bitmap);
+            } else {
+                ivDrawerAvatar.setImageResource(R.drawable.company_lg);
+            }
+        } catch (Exception ignored) {
+            ivDrawerAvatar.setImageResource(R.drawable.company_lg);
         }
     }
 
@@ -598,6 +693,12 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onDestroy() {
         repository.removeObservers();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadLatestProfileFromFirebase();
     }
 
     private static class MutableSource {

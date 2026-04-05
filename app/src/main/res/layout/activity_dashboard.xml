@@ -42,10 +42,12 @@
 
                     <ImageView
                         android:id="@+id/ivMenu"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/menu_ic"
-                        app:tint="@color/titules"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_stat_card"
+                        android:src="@android:drawable/ic_menu_sort_by_size"
+                        app:tint="@color/white"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/dashboard_menu_desc"/>
@@ -568,6 +570,7 @@
             android:padding="28dp">
 
             <ImageView
+                android:id="@+id/ivDrawerAvatar"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/company_lg"
@@ -616,6 +619,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="@string/lbl_dashboard"
+                android:fontFamily="@font/jomolhari_regular"
+                android:backgroundTint="@color/btns"
+                android:textColor="@color/alma_button_text"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                app:cornerRadius="8dp"/>
+
+            <Button
+                android:id="@+id/btnProfile"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="@string/profile_menu_title"
+                android:fontFamily="@font/jomolhari_regular"
+                android:backgroundTint="@color/btns"
+                android:textColor="@color/alma_button_text"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                app:cornerRadius="8dp"/>
+
+            <Button
+                android:id="@+id/btnAppInfo"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="@string/about_menu_title"
                 android:fontFamily="@font/jomolhari_regular"
                 android:backgroundTint="@color/btns"
                 android:textColor="@color/alma_button_text"
