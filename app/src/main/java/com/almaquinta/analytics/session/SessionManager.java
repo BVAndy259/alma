@@ -22,4 +22,8 @@ public class SessionManager {
         return currentUser != null && (currentUser.getRole() == UserRole.ADMIN
                 || currentUser.getRole() == UserRole.COORDINATOR);
     }
+
+    public boolean isAdminOnly() {
+        return currentUser != null && currentUser.getRole() == UserRole.ADMIN;
+    }
 }

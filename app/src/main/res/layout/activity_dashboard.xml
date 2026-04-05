@@ -94,6 +94,78 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#26FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    android:layout_marginBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_quick_actions"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:textColor="@color/titules"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="12dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <Button
+                                android:id="@+id/btnActiveNew"
+                                android:layout_width="0dp"
+                                android:layout_height="55dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:text="@string/active_new_title"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:backgroundTint="@color/btns"
+                                android:textColor="@color/alma_button_text"
+                                android:textStyle="bold"
+                                app:cornerRadius="8dp"/>
+
+                            <Button
+                                android:id="@+id/btnViewsPerMonth"
+                                android:layout_width="0dp"
+                                android:layout_height="55dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/views_month_title"
+                                android:fontFamily="@font/jomolhari_regular"
+                                android:backgroundTint="@color/btns"
+                                android:textColor="@color/alma_button_text"
+                                android:textStyle="bold"
+                                app:cornerRadius="8dp"/>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnManageUsers"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/btn_manage_users"
+                            android:fontFamily="@font/jomolhari_regular"
+                            android:backgroundTint="@color/btns"
+                            android:textColor="@color/alma_button_text"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:cornerRadius="8dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:cardBackgroundColor="#26FFFFFF"
                     app:cardCornerRadius="16dp"
@@ -556,30 +628,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="@string/btn_log_out"
-                android:fontFamily="@font/jomolhari_regular"
-                android:backgroundTint="@color/btns"
-                android:textColor="@color/alma_button_text"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"
-                app:cornerRadius="8dp"/>
-
-            <Button
-                android:id="@+id/btnActiveNew"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="@string/active_new_title"
-                android:fontFamily="@font/jomolhari_regular"
-                android:backgroundTint="@color/btns"
-                android:textColor="@color/alma_button_text"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"
-                app:cornerRadius="8dp"/>
-
-            <Button
-                android:id="@+id/btnViewsPerMonth"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="@string/views_month_title"
                 android:fontFamily="@font/jomolhari_regular"
                 android:backgroundTint="@color/btns"
                 android:textColor="@color/alma_button_text"

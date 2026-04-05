@@ -21,10 +21,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.almaquinta.analytics.R;
+import com.almaquinta.analytics.data.model.AppUser;
 import com.almaquinta.analytics.data.model.UserRole;
 import com.almaquinta.analytics.security.AuthorizationService;
 import com.almaquinta.analytics.iu.dashboard.DashboardActivity;
 import com.almaquinta.analytics.iu.main.MainActivity;
+import com.almaquinta.analytics.session.SessionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -105,6 +107,10 @@ public class RegisterActivity extends AppCompatActivity {
         email = etEmail.getText().toString().trim();
         password = etPassword.getText().toString().trim();
         selectedRole = getSelectedRole();
+        if (!isSelectedRoleAllowed(selectedRole)) {
+            Toast.makeText(this, "El coordinador solo puede crear empleados", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "El campo nombre está vacío", Toast.LENGTH_SHORT).show();
@@ -190,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isAdminAllowed() {
         try {
-            authorizationService.requireAdmin();
+            authorizationService.requireRegistrationAccess();
             return true;
         } catch (SecurityException ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -204,11 +210,18 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setupRoleSpinner() {
-        String[] roles = new String[]{"Administrador", "Coordinador", "Empleado"};
+        AppUser currentUser = SessionManager.getInstance().getCurrentUser();
+        boolean isCoordinator = currentUser != null && currentUser.getRole() == UserRole.COORDINATOR;
+
+        String[] roles = isCoordinator
+                ? new String[]{"Empleado"}
+                : new String[]{"Administrador", "Coordinador", "Empleado"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.custom_spinner_item, roles);
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spRole.setAdapter(adapter);
-        spRole.setSelection(2);
+        spRole.setSelection(roles.length - 1);
+        spRole.setEnabled(!isCoordinator);
+        spRole.setClickable(!isCoordinator);
     }
 
     private UserRole getSelectedRole() {
@@ -225,5 +238,16 @@ public class RegisterActivity extends AppCompatActivity {
             return UserRole.COORDINATOR;
         }
         return UserRole.EMPLOYEE;
+    }
+
+    private boolean isSelectedRoleAllowed(UserRole role) {
+        AppUser currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            return false;
+        }
+        if (currentUser.getRole() == UserRole.ADMIN) {
+            return true;
+        }
+        return role == UserRole.EMPLOYEE;
     }
 }

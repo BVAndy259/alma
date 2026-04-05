@@ -34,7 +34,9 @@ import com.almaquinta.analytics.data.repository.AnalyticsRepositoryImpl;
 import com.almaquinta.analytics.iu.activenew.ActiveNewUsersActivity;
 import com.almaquinta.analytics.iu.main.MainActivity;
 import com.almaquinta.analytics.iu.register.RegisterActivity;
+import com.almaquinta.analytics.iu.usermanagement.UserManagementActivity;
 import com.almaquinta.analytics.iu.viewspermonth.ViewsPerMonthActivity;
+import com.almaquinta.analytics.security.AuthorizationService;
 import com.almaquinta.analytics.session.SessionManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,7 +71,8 @@ public class DashboardActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private AnalyticsRepository repository;
-    private Button btnRegister, btnAdvanced;
+    private final AuthorizationService authorizationService = new AuthorizationService();
+    private Button btnRegister, btnAdvanced, btnManageUsers;
 
     private DrawerLayout drawerLayout;
     private List<AnalyticsSummary> allSummaries = new ArrayList<>();
@@ -113,10 +116,8 @@ public class DashboardActivity extends AppCompatActivity {
             getWindow().setStatusBarContrastEnforced(false);
         }
         WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        if (controller != null) {
-            controller.setAppearanceLightStatusBars(false);
-            controller.setAppearanceLightNavigationBars(false);
-        }
+        controller.setAppearanceLightStatusBars(false);
+        controller.setAppearanceLightNavigationBars(false);
     }
 
     private void bindValues() {
@@ -143,10 +144,21 @@ public class DashboardActivity extends AppCompatActivity {
 
         btnRegister = findViewById(R.id.btnRegister);
         btnAdvanced = findViewById(R.id.btnActiveNew);
+        btnManageUsers = findViewById(R.id.btnManageUsers);
         Button btnLogOut = findViewById(R.id.btnLogOut);
 
         btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));
         btnAdvanced.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, ActiveNewUsersActivity.class)));
+        if (btnManageUsers != null) {
+            btnManageUsers.setOnClickListener(v -> {
+                try {
+                    authorizationService.requireAdminOnly();
+                    startActivity(new Intent(DashboardActivity.this, UserManagementActivity.class));
+                } catch (SecurityException ex) {
+                    Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         btnLogOut.setOnClickListener(view -> logOut());
         Button btnViewsPerMonth = findViewById(R.id.btnViewsPerMonth);
         if (btnViewsPerMonth != null) {
@@ -257,9 +269,13 @@ public class DashboardActivity extends AppCompatActivity {
 
         userRoleDash.setText(rol);
 
-        boolean canManage = SessionManager.getInstance().isAdmin();
-        if (btnRegister != null) btnRegister.setVisibility(canManage ? View.VISIBLE : View.GONE);
-        if (btnAdvanced != null) btnAdvanced.setVisibility(canManage ? View.VISIBLE : View.GONE);
+        boolean canRegister = SessionManager.getInstance().isAdmin();
+        boolean canManageUsers = SessionManager.getInstance().isAdminOnly();
+        if (btnRegister != null) btnRegister.setVisibility(canRegister ? View.VISIBLE : View.GONE);
+        if (btnAdvanced != null) btnAdvanced.setVisibility(View.VISIBLE);
+        View btnViewsPerMonth = findViewById(R.id.btnViewsPerMonth);
+        if (btnViewsPerMonth != null) btnViewsPerMonth.setVisibility(View.VISIBLE);
+        if (btnManageUsers != null) btnManageUsers.setVisibility(canManageUsers ? View.VISIBLE : View.GONE);
     }
 
     private void setupFilterListeners() {

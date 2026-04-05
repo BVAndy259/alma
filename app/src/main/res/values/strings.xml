@@ -136,6 +136,30 @@
 	<string name="export_error">No se pudo exportar: %1$s</string>
 	<string name="export_title_active_new">Exportar Activos y Nuevos</string>
 	<string name="export_title_views_month">Exportar Vistas por Mes</string>
+	<string name="btn_manage_users">Administrar usuarios</string>
 
-     <string name="todo">TODO</string>
+		<string name="btn_back_symbol">←</string>
+		<string name="zero">0</string>
+		<string name="dashboard_admin_actions">Acciones de administración</string>
+		<string name="user_mgmt_title">Administrar Usuarios</string>
+		<string name="user_mgmt_subtitle">Editar roles y activar o desactivar usuarios</string>
+		<string name="user_mgmt_total">Usuarios Totales</string>
+		<string name="user_mgmt_active">Activos</string>
+		<string name="user_mgmt_inactive">Inactivos</string>
+		<string name="user_mgmt_admins">Administradores</string>
+		<string name="user_mgmt_coordinators">Coordinadores</string>
+		<string name="user_mgmt_employees">Empleados</string>
+		<string name="user_mgmt_list_hint">Toca un usuario para editarlo.</string>
+		<string name="user_mgmt_user_details">%1$s · %2$s</string>
+		<string name="user_mgmt_dialog_title">Editar usuario</string>
+		<string name="user_mgmt_dialog_name">Nombre</string>
+		<string name="user_mgmt_dialog_email">Correo</string>
+		<string name="user_mgmt_dialog_role">Rol</string>
+		<string name="user_mgmt_dialog_active">Usuario activo</string>
+		<string name="user_mgmt_dialog_save">Guardar cambios</string>
+		<string name="user_mgmt_dialog_cancel">Cancelar</string>
+		<string name="user_mgmt_update_success">Usuario actualizado correctamente.</string>
+		<string name="user_mgmt_update_error">No se pudo actualizar el usuario: %1$s</string>
+		<string name="user_mgmt_admin_only">Solo los administradores pueden acceder a esta función.</string>
+		<string name="todo">TODO</string>
 </resources>
