@@ -188,6 +188,8 @@
 		<string name="profile_image_error">No se pudo procesar la imagen: %1$s</string>
 		<string name="about_title">Información de la app</string>
 		<string name="about_back">Volver</string>
+		<string name="about_github">Abrir perfil de GitHub</string>
+		<string name="about_youtube">Abrir canal de YouTube</string>
 		<string name="about_app_name_label">Aplicación</string>
 		<string name="about_app_summary_text">Alma Quinta Growth Hub centraliza métricas de Google Analytics y datos operativos para ayudar a supervisar crecimiento, tráfico y comportamiento de usuarios.</string>
 		<string name="about_developer_label">Desarrollador</string>

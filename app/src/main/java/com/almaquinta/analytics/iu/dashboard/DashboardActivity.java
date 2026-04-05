@@ -1,6 +1,7 @@
 package com.almaquinta.analytics.iu.dashboard;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -63,8 +65,9 @@ import com.almaquinta.analytics.data.model.AppUser;
 import com.almaquinta.analytics.data.model.UserRole;
 
 public class DashboardActivity extends AppCompatActivity {
-    private static final int DASHBOARD_MONTH_LIMIT = 3;
 
+    private static final String GITHUB_URL = "https://github.com/BVAndy259", YOUTUBE_URL = "https://www.youtube.com/@destructor_777";
+    private static final int DASHBOARD_MONTH_LIMIT = 3;
     private TextView tvTotalVisitsValue, tvSessionsValue, tvAssetsValue, tvNewValue, tvInteractionValue, tvSourceValue, userDash, userRoleDash, tvDashboardReport, tvSelectedPeriod, tvSourcesList;
     private Spinner spinnerYear, spinnerMonth;
     private LinearLayout trafficBarsContainer;
@@ -183,13 +186,26 @@ public class DashboardActivity extends AppCompatActivity {
                 .create();
 
         ImageView btnBack = dialogView.findViewById(R.id.btnBackAbout);
+        ImageButton githubIcon = dialogView.findViewById(R.id.githubIcon);
+        ImageButton youtubeIcon = dialogView.findViewById(R.id.youtubeIcon);
+
         btnBack.setOnClickListener(v -> dialog.dismiss());
+        githubIcon.setOnClickListener(v -> openExternalUrl(GITHUB_URL));
+        youtubeIcon.setOnClickListener(v -> openExternalUrl(YOUTUBE_URL));
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
         dialog.show();
+    }
+
+    private void openExternalUrl(String url) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        } catch (Exception ex) {
+            Toast.makeText(this, "No se pudo abrir el enlace", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void observeDashboard() {
