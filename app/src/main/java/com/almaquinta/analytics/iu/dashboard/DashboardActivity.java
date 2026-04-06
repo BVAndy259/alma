@@ -75,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private AnalyticsRepository repository;
     private final AuthorizationService authorizationService = new AuthorizationService();
-    private Button btnRegister, btnAdvanced, btnManageUsers, btnProfile, btnAppInfo;
+    private Button btnRegister, btnManageUsers, btnAdvanced;
     private ImageView ivDrawerAvatar;
     private DrawerLayout drawerLayout;
     private List<AnalyticsSummary> allSummaries = new ArrayList<>();
@@ -120,8 +120,8 @@ public class DashboardActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnAdvanced = findViewById(R.id.btnActiveNew);
         btnManageUsers = findViewById(R.id.btnManageUsers);
-        btnProfile = findViewById(R.id.btnProfile);
-        btnAppInfo = findViewById(R.id.btnAppInfo);
+        Button btnProfile = findViewById(R.id.btnProfile);
+        Button btnAppInfo = findViewById(R.id.btnAppInfo);
         Button btnLogOut = findViewById(R.id.btnLogOut);
 
         btnRegister.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, RegisterActivity.class)));

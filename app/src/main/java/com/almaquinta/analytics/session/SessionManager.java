@@ -6,7 +6,6 @@ import com.almaquinta.analytics.data.model.UserRole;
 public class SessionManager {
     private static SessionManager instance;
     private AppUser currentUser;
-
     private SessionManager() {}
 
     public static SessionManager getInstance() {

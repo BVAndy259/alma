@@ -124,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
             currentFocusedTarget = targetToReveal;
             scrollView.post(() -> scrollTargetIntoView(scrollView, targetToReveal));
-            // A short delayed pass handles devices where IME insets arrive slightly later.
             scrollView.postDelayed(() -> scrollTargetIntoView(scrollView, targetToReveal), 180L);
             scrollView.postDelayed(() -> ensureTargetVisibleAboveKeyboard(scrollView, targetToReveal), 240L);
         });
