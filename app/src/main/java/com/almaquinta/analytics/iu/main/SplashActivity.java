@@ -60,6 +60,13 @@ public class SplashActivity extends AppCompatActivity {
                 String roleRaw = getSafeString(snapshot.child("role").getValue(), "");
                 boolean active = getSafeBoolean(snapshot.child("active").getValue());
 
+                if (!active) {
+                    FirebaseAuth.getInstance().signOut();
+                    SessionManager.getInstance().logout();
+                    openMain();
+                    return;
+                }
+
                 UserRole role = parseRole(roleRaw);
                 AppUser appUser = new AppUser(lastName, firebaseUser.getUid(), name, email, role, active);
                 SessionManager.getInstance().setCurrentUser(appUser);

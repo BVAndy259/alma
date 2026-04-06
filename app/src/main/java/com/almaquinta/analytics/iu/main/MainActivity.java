@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
                 String roleRaw = getSafeString(snapshot.child("role").getValue(), "");
                 boolean active = getSafeBoolean(snapshot.child("active").getValue());
 
+                if (!active) {
+                    progressDialog.dismiss();
+                    firebaseAuth.signOut();
+                    SessionManager.getInstance().logout();
+                    Toast.makeText(MainActivity.this, "Tu cuenta está desactivada", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 UserRole role = parseRole(roleRaw);
                 if (roleRaw.isEmpty()) {
                     userRef.child("role").setValue(UserRole.ADMIN.name());
