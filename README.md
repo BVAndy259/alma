@@ -55,7 +55,3 @@ app/src/main/java/com/almaquinta/analytics/
 ## Requisitos Firebase
 
 El proyecto requiere **Authentication** (Email/Password) y **Realtime Database** habilitados, con los nodos `Usuarios/{uid}` y `estadisticas_sesiones` poblados según el esquema esperado por la app.
-
----
-
-Es conciso pero cubre todo lo esencial para que alguien externo entienda qué hace la app, cómo montarla y cómo está organizada. Si querés también puedo agregar badges (build status, API level, etc.) o una sección de capturas de pantalla.
